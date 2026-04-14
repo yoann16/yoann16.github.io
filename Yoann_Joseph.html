@@ -17,13 +17,19 @@
                 color: white;
                 margin-bottom: 10px;
             }
-            .ParagrapheD
+            .ImagePlaceholder
             {
-
+                width: 300px;
+                height: 200px;
+                background-color: gray;
+                flex-shrink: 0;
             }
-            .ParagrapheG
+            .ParagrapheG, .ParagrapheD
             {
-
+                display: flex;
+                align-items: center;
+                gap: 40px;
+                padding: 40px;
             }
             .ParagrapheClassic
             {
@@ -45,17 +51,17 @@
                 padding: 40px;
                 border : 5px solid black;
             }
-            .BodyPresentation h2
-            {
-                padding-left: 60px;
-            }
+            .BodyPresentation h2{padding-left: 60px;}
             .Ecole
             {
 
             }
             .BodyEcole
             {
-                
+                 max-width: 800px;
+                margin: 0 auto;
+                padding: 40px;
+                border : 5px solid black;
             }
             .Projet
             {
@@ -83,6 +89,7 @@
             }
         </style>
     </head>
+    
     <body>
 
         <nav>
@@ -104,6 +111,23 @@
 
         <section class="Ecole">
             <div class="BodyEcole">
+
+                <div class="ParagrapheG">
+                    <div class="ImagePlaceholder"></div>
+                        <div>
+                            <h3>Gaming Campus</h3>
+                            <p>Bachelor Développeur Informatique option Jeu Vidéo - 2024/2027</p>
+                        </div>
+                </div>
+
+                <div class="ParagrapheD">
+                        <div>
+                            <h3>Université de Nantes</h3>
+                            <p>Licnece Physique</p>
+                        </div>
+                        <div class="ImagePlaceholder"></div>
+                    </div>
+
             </div>
         </section>
 
