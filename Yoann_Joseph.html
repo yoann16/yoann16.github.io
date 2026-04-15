@@ -2,6 +2,7 @@
 <html lang="fr">
     <head>
         <title>Yoann Joseph</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
         <style>
             :root
             {
@@ -26,23 +27,56 @@
                 text-decoration : underline;
                 font-weight: bold;
             }
-            .ImagePlaceholder
+            .TitreGroupe
             {
-                width: 300px;
-                height: 200px;
-                background-color: gray;
+                font-size: 40px;
+                font-weight: bold;
+                text-decoration: underline;
+                padding: 20px 0;
+            }
+            .GrilleImages
+            {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+                width: 400px;
                 flex-shrink: 0;
             }
-            .VideoPlaceholder
+            .GrilleImages .MediaPlaceHolder
+            {
+                width: 190px;
+                height: 130px;
+                box-sizing: border-box;
+            }
+            .MediaPlaceHolder
             {
                 width: 300px;
                 height: 200px;
                 background-color: purple;
                 flex-shrink: 0;
+                border: 5px solid var(--accent);
+            }
+            .BoutonRepo
+            {
+                display: inline-block;
+                padding: 10px 20px;
+                border: 2px solid var(--accent);
+                color: var(--texte);
+                text-decoration: none;
+                font-weight: bold;
+                white-space: nowrap;
             }
             .GrilleStack
             {
-
+                display: flex;
+                flex-wrap: wrap;
+                gap: 30px;
+                align-items: center;
+                padding: 20px;
+            }
+            .GrilleStack i
+            {
+                font-size: 80px;
             }
             .ParagrapheG, .ParagrapheD
             {
@@ -53,7 +87,6 @@
             }
             .ParagrapheClassic
             {
-
             }
             nav
             {
@@ -72,7 +105,10 @@
             .Contact
             {
                 color: var(--fond);
-                margin: 5px;
+                margin: 5px 15px;
+                font-size: 20px;
+                font-weight: bold;
+                text-decoration: none;
             }
             .Presentation
             {
@@ -90,13 +126,8 @@
                 margin: 0 auto;
                 padding: 40px;
             }
-            .BodyEcole img
+            .BodyEcole
             {
-                width: 300px;
-                height: 200px;
-                object-fit: cover;
-                flex-shrink: 0;
-                border : 5px solid var(--accent);
             }
             .Projet
             {
@@ -106,10 +137,6 @@
             }
             .BodyProjet
             {
-                /* max-width: 800px;
-                margin: 0 auto;
-                padding: 40px; */
-                border : 5px solid var(--accent);
             }
             .StackTechnique 
             {
@@ -119,10 +146,6 @@
             }
             .BodyStackTechnique
             {
-                /* max-width: 800px;
-                margin: 0 auto;
-                padding: 40px; */
-                border : 5px solid var(--accent);
             }
         </style>
     </head>
@@ -131,13 +154,16 @@
 
         <nav>
             <h1>Yoann Joseph</h1>
-            <a class="Contact" href="https://github.com/yoann16" target="_blank">GitHub</a>
-            <a class="Contact" href="https://www.linkedin.com/in/yoann-joseph-etudiant/" target="_blank">LinkedIn</a>
+            <div>
+                <a class="Contact" href="https://github.com/yoann16" target="_blank">GitHub</a>
+                <a class="Contact" href="https://www.linkedin.com/in/yoann-joseph-etudiant/" target="_blank">LinkedIn</a>
+            </div>
         </nav>
 
         <section class="Presentation">
+            <h2 class="TitreGroupe">Qui je suis</h2>
             <div class="BodyPresentation">
-                <h2 class="TitreSection">Qui je suis :</h2>
+                
                 <p class="ParagrapheClassic">
                     Je suis étudiant en Bachelor Développement informatique, option Jeu vidéo, 
                     au Gaming Campus de Bordeaux, en G.Tech 2. 
@@ -154,10 +180,11 @@
         </section>
 
         <section class="Ecole">
+            <h2 class="TitreGroupe">Parcours</h2>
             <div class="BodyEcole">
                 <div class="ParagrapheG">
                     <!-- Bac -->
-                    <img src="Lycée_Aristide_Briand.jpg" alt="Lycée Aristide Briand">
+                    <img class="MediaPlaceHolder" src="Lycée_Aristide_Briand.jpg" alt="Lycée Aristide Briand">
 
                     <div>
                         <h2 class="TitreSection">Bac STI2D</h2>   
@@ -174,12 +201,12 @@
                     </div>
                     
                     <!-- Université de Nantes -->
-                    <img src="La-Faculte-des-Sciences-et-techniques-de-Nantes.jpg" alt="Université de Nantes">
+                    <img class="MediaPlaceHolder" src="La-Faculte-des-Sciences-et-techniques-de-Nantes.jpg" alt="Université de Nantes">
                  </div>
 
                 <div class="ParagrapheG">
                     <!-- Gaming Campus -->
-                    <img src="logo-gaming-campus.png" alt="Gaming Campus">
+                    <img class="MediaPlaceHolder" src="logo-gaming-campus.png" alt="Gaming Campus">
 
                     <div>
                         <h2 class="TitreSection">Gaming Campus</h2>   
@@ -194,44 +221,137 @@
         </section>
 
         <section class="Projet">
+            <h2 class="TitreGroupe">Projets</h2>
             <div class="BodyProjet">
+                <div class="ParagrapheG">
+                    <video class="MediaPlaceHolder" controls muted>
+                        <source src="Bloop_and_Fly.mp4" type="video/mp4">
+                    </video>
+
+                    <div>
+                        <h2 class="TitreSection">Bloop and Fly</h2>
+                        
+                        <p>Bloop and Fly, est un jeu à la première personne développé en C++ 
+                            dans un moteur de jeu personnalisé.
+                            J'ai implémenté les ennemis et leurs comportements, 
+                            et j'ai appris à créer des ActionsLists.
+                        </p>
+                    </div>
+                </div>
+
                 <div class="ParagrapheD">
                     <div>
                         <h2 class="TitreSection">Runner 3D</h2>
                         
-                        <p>Blablabla</p>
+                        <p>Nous avons créé un moteur 3D sur mesure en C++ avec Vulkan 
+                            pour développer un rail shooter.  
+                            J'ai développé toute la pipeline graphique avec Vulkan durant ce projet.</p>
                     </div>
                         
-                    <div class="VideoPlaceholder"></div>
+                    <video class="MediaPlaceHolder" controls muted>
+                        <source src="Moteur_3D.mp4" type="video/mp4">
+                    </video>
                 </div>
 
                 <div class="ParagrapheG">
-                    <div class="ImagePlaceholder"></div>
+                    <video class="MediaPlaceHolder" controls>
+                        <source src="GameJam_2026.mp4" type="video/mp4">
+                    </video>
 
                     <div>
-                        <h2 class="TitreSection">Arena Shooter</h2>
+                        <h2 class="TitreSection">GameJam Février 2026</h2>
                         
-                        <p>Blablabla</p>
+                        <p>En équipe, nous avons créé un jeu de plateforme avec Unity en deux jours.  
+                        J'ai notamment travaillé sur la physique des plateformes.
+                        Les plateformes mobiles étaient prévues, mais pas implémentées, faute de temps.</p>
                     </div>
                 </div>
 
                 <div class="ParagrapheD">
                     <div>
-                        <h2 class="TitreSection">Jeu 3D multijoueur temps réel</h2>
+                        <h2 class="TitreSection">Arena Shooter</h2>
                         
-                        <p>Blablabla</p>
+                        <p>Cet Arena Shooter a été développé en C++ avec le moteur de rendu open source Ogre-Next.
+                            J'ai conçu la structure de l'engine qui relie le jeu à Ogre-Next.
+                        </p>
                     </div>
                         
-                    <div class="VideoPlaceholder"></div>
+                    <video class="MediaPlaceHolder" controls muted>
+                        <source src="Arena_Shooter.mp4" type="video/mp4">
+                    </video>
                 </div>
 
                 <div class="ParagrapheG">
-                    <div class="ImagePlaceholder"></div>
+                    <div class="GrilleImages">
+                        <!-- <img class="MediaPlaceHolder" src="BMP_1.png" alt="Traitement d'Image BMP"> -->
+                        <img class="MediaPlaceHolder" src="BMP_2.png" alt="Traitement d'Image BMP">
+                        <img class="MediaPlaceHolder" src="BMP_3.png" alt="Traitement d'Image BMP">
+                        <img class="MediaPlaceHolder" src="BMP_4.png" alt="Traitement d'Image BMP">
+                    </div>
+
+                    <div>
+                        <h2 class="TitreSection">Arena Shooter</h2>
+                        
+                        <p>Il s'agit d'une application de traitement d'images en ligne de commande écrite en C++.
+                            Elle permet de modifier des images au format BMP.
+                            Ma mission était de mettre en place un filtre moyen et une fonction de rotation.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="ParagrapheD">
+                    <div>
+                        <h2 class="TitreSection">Projet IA d'un Boss</h2>
+                        
+                        <p>L'objectif était de créer l'intelligence artificielle d'un boss en C++.
+                            J'ai géré toute la partie CMake pour générer le projet.
+                        </p>
+                    </div>
+                        
+                    <video class="MediaPlaceHolder" controls muted>
+                        <source src="IA.mp4" type="video/mp4">
+                    </video>
+                </div>
+
+                <div class="ParagrapheG">
+                    <video class="MediaPlaceHolder" controls muted>
+                        <source src="Runner_3D.mp4" type="video/mp4">
+                    </video>
+
+                    <div>
+                        <h2 class="TitreSection">Runner 3D</h2>
+                        
+                        <p>L'objectif était de créer un Subway Surfer Like en C++.
+                            J'ai développé toute la partie moteur et la création des GameObjects.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="ParagrapheD">
+                    <div>
+                        <h2 class="TitreSection">Librairie Mathématique</h2>
+                        
+                        <p>Ce projet solo consistait à créer une bibliothèque mathématique en C++ pour un moteur de jeu.
+                            J'ai implémenté les classes Vector, Iterator, Array, Vecteur et Matrice, 
+                            ainsi que les différentes opérations sur les vecteurs et matrices 
+                            (produit vectoriel, produit scalaire, etc.).
+                        </p>
+                    </div>
+                        
+                    <a class="BoutonRepo" href="https://github.com/yoann16/Mathematical_Library.git" target="_blank">Voir le Repo</a>
+                </div>
+
+                <div class="ParagrapheG">
+                    <video class="MediaPlaceHolder" controls muted>
+                        <source src="Jeu_Aventure.mp4" type="video/mp4">
+                    </video>
 
                     <div>
                         <h2 class="TitreSection">Moteur 3D — Rail Shooter</h2>
                         
-                        <p>Blablabla</p>
+                        <p>L'objectif était de créer un jeu de plateforme avec une direction artistique 
+                            qui ressemble à Super Metroid sur SNES, en C++.
+                            J'ai conçu l'éditeur de niveaux.</p>
                     </div>
                 </div>
 
@@ -239,26 +359,36 @@
                     <div>
                         <h2 class="TitreSection">Bloop & Flop</h2>
                         
-                        <p>Blablabla</p>
+                        <p>Le but de ce projet individuel était de créer un démineur en C++ en utilisant l'algorithme Flood Fill.</p>
                     </div>
                         
-                    <div class="VideoPlaceholder"></div>
+                    <video class="MediaPlaceHolder" controls muted>
+                        <source src="MineSweeper.mp4" type="video/mp4">
+                    </video>
                 </div>
             </div>
         </section>
 
         <section class="StackTechnique">
+            <h2 class="TitreGroupe">Stack Technique</h2>
             <div class="BodyStackTechnique">
-                <h2 class="TitreSection">Stack Technique</h2>
-                
                 
                 <div class="GrilleStack">
-                    <img src="cpp.png" alt="C++">
-                    <img src="vulkan.png" alt="Vulkan">
-                    <img src="git.png" alt="Git">
-                    <img src="cmake.png" alt="CMake">
-                    <img src="python.png" alt="Python">
-                    <img src="unity.png" alt="Unity">
+                    <i class="devicon-cplusplus-plain colored"></i>
+                    <i class="devicon-vulkan-plain colored"></i>
+                    <i class="devicon-git-plain colored"></i>
+                    <i class="devicon-cmake-plain colored"></i>
+                    <i class="devicon-python-plain colored"></i>
+                    <i class="devicon-unity-plain colored"></i>
+                    <i class="devicon-blender-original colored"></i>
+                    <!-- <img class="LogoStack" src="C++.png" alt="C++">
+                    <img class="LogoStack" src="Vulkan.png" alt="Vulkan">
+                    <img class="LogoStack" src="Git.png" alt="Git">
+                    <img class="LogoStack" src="CMake.png" alt="CMake">
+                    <img class="LogoStack" src="Python.jpg" alt="Python">
+                    <img class="LogoStack" src="Unity.png" alt="Unity">
+                    <img class="LogoStack" src="Slang.png" alt="Slang">
+                    <img class="LogoStack" src="Blender.png" alt="Blender"> -->
                 </div>
             </div>
         </section>
