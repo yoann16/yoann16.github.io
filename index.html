@@ -162,8 +162,6 @@ dialog.lightbox::backdrop { background: rgba(40, 6, 12, .9); }
 dialog.lightbox video, dialog.lightbox img { width: 100%; background: #000; }
 dialog.lightbox button { position: absolute; top: -40px; right: 0; border: 0; background: none; color: var(--ink); font: 600 var(--t-sm) var(--font); cursor: pointer; }
 
-code { font-family: var(--mono); font-size: .88em; }
-
 /* À COMPLÉTER : à supprimer une fois rempli */
 .todo { color: var(--todo); font-style: italic; border-bottom: 1px dashed var(--todo); }
 
@@ -196,7 +194,6 @@ code { font-family: var(--mono); font-size: .88em; }
         <a href="#projets">Projets</a>
         <a href="#parcours">Parcours</a>
         <a href="#contact">Contact</a>
-        <!-- TODO : déposer le PDF du CV à la racine du repo sous ce nom -->
         <a href="CV_Yoann_Joseph.pdf">CV</a>
     </nav>
 
@@ -238,39 +235,6 @@ code { font-family: var(--mono); font-size: .88em; }
         <article class="case">
             <div class="case-head">
                 <span class="kind">Rendu et moteur</span>
-                <h3>Moteur 3D Vulkan</h3>
-                <span class="year">2026</span>
-                <p class="pitch">Un moteur de jeu 3D écrit sans moteur existant, en Vulkan 1.3 et en architecture ECS, pour un rail shooter dont le rail est généré par des splines de Catmull-Rom.</p>
-            </div>
-            <button class="media" type="button" data-video="media/Moteur_3D.mp4" aria-label="Agrandir la vidéo du moteur Vulkan">
-                <img src="media/Moteur_3D.jpg" alt="" loading="lazy">
-            </button>
-            <div class="case-body">
-                <div>
-                    <h4>Ce que j’ai fait</h4>
-                    <ul>
-                        <li>L’intégration de Vulkan dans le moteur</li>
-                        <li>Le renderer</li>
-                        <li>Les shaders, écrits en Slang</li>
-                        <li>L’éclairage diffus : modèle de Lambert, lumière ponctuelle avec atténuation</li>
-                    </ul>
-                </div>
-                <div>
-                    <h4>Le problème le plus dur</h4>
-                    <p><span class="todo">Un problème précis et comment tu l’as résolu, en deux phrases.</span></p>
-                </div>
-                <dl class="facts">
-                    <dt>Cadre</dt><dd>Gaming Campus</dd>
-                    <dt>Équipe</dt><dd>3 programmeurs</dd>
-                    <dt>Durée</dt><dd>Février à mars 2026</dd>
-                    <dt>Outils</dt><dd>C++, Vulkan 1.3, Slang, ECS</dd>
-                </dl>
-            </div>
-        </article>
-
-        <article class="case">
-            <div class="case-head">
-                <span class="kind">Rendu et moteur</span>
                 <h3>Moteur de rendu CPU</h3>
                 <span class="year">2026</span>
                 <p class="pitch">Tout le rendu 3D calculé sur le processeur, sans API graphique, en 320 × 180 comme le mode 13h des démos PC des années 90. C’est lui qui fait tourner la théière en haut de cette page, et la démo « 1992 » ci-dessous : 8 scènes calées sur une musique générée par le programme.</p>
@@ -292,21 +256,57 @@ code { font-family: var(--mono); font-size: .88em; }
                 <div>
                     <h4>Ce que j’ai fait</h4>
                     <ul>
-                        <li>Le chargement des meshes au format OBJ</li>
-                        <li>Le système de matériaux</li>
-                        <li>Les fragment shaders et l’éclairage (Lambert, lumières directionnelles)</li>
+                        <li>Le chargement des meshes OBJ, avec déduplication des sommets : 1 984 → 559 sommets pour la même sphère</li>
+                        <li>Le système de matériaux et les fragment shaders, sur le modèle d’une API graphique comme Vulkan</li>
+                        <li>L’éclairage de Lambert, avec des lumières directionnelles</li>
                         <li>Le portage dans le navigateur avec Emscripten, pour cette page</li>
                     </ul>
                 </div>
                 <div>
                     <h4>Le problème le plus dur</h4>
-                    <p>Faire entrer les matériaux et les shaders dans la pipeline de rendu. <span class="todo">Comment tu l’as résolu ?</span></p>
+                    <p>Faire arriver les données des matériaux jusqu’au shader. Au départ, chaque mesh n’avait qu’une couleur
+                    écrite en dur. Je me suis inspiré de Vulkan : les petites données propres à chaque objet passent comme des
+                    push constants, et les ressources partagées sont référencées dans une table de liaison, comme un descriptor
+                    set. Le fragment shader est une <code>std::function</code> à la signature fixe qui renvoie la couleur du pixel
+                    (<code>glm::vec4</code>) : ajouter un shader revient à écrire une nouvelle fonction, sans toucher au rasterizer.</p>
                 </div>
                 <dl class="facts">
                     <dt>Cadre</dt><dd>Gaming Campus</dd>
-                    <dt>Équipe</dt><dd>2 programmeurs</dd>
-                    <dt>Durée</dt><dd>Octobre à novembre 2026</dd>
+                    <dt>Équipe</dt><dd>2 personnes</dd>
+                    <dt>Durée</dt><dd><span class="todo">dates</span></dd>
                     <dt>Outils</dt><dd>C++, SDL, Emscripten</dd>
+                </dl>
+            </div>
+        </article>
+
+        <article class="case">
+            <div class="case-head">
+                <span class="kind">Rendu et moteur</span>
+                <h3>Moteur 3D Vulkan</h3>
+                <span class="year">2026</span>
+                <p class="pitch">Un moteur écrit de zéro en C++ et Vulkan, en architecture ECS, pour faire tourner un rail-shooter.</p>
+            </div>
+            <button class="media" type="button" data-video="media/Moteur_3D.mp4" aria-label="Agrandir la vidéo du moteur Vulkan">
+                <img src="media/Moteur_3D.jpg" alt="" loading="lazy">
+            </button>
+            <div class="case-body">
+                <div>
+                    <h4>Ce que j’ai fait</h4>
+                    <ul>
+                        <li>Le renderer : <span class="todo">type de rendu, nombre de passes ?</span></li>
+                        <li>Les shaders en Slang et leur intégration dans la pipeline Vulkan</li>
+                        <li>L’éclairage : <span class="todo">Phong ou Blinn-Phong ? quelles lumières ?</span></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Le problème le plus dur</h4>
+                    <p><span class="todo">Un problème précis et comment tu l’as résolu, en deux phrases.</span></p>
+                </div>
+                <dl class="facts">
+                    <dt>Cadre</dt><dd>Gaming Campus</dd>
+                    <dt>Équipe</dt><dd>3 personnes</dd>
+                    <dt>Durée</dt><dd>Février à mars 2026</dd>
+                    <dt>Outils</dt><dd>C++, Vulkan, Slang, CMake</dd>
                 </dl>
             </div>
         </article>
@@ -316,7 +316,8 @@ code { font-family: var(--mono); font-size: .88em; }
                 <span class="kind">Gameplay</span>
                 <h3>Bloop &amp; Fly</h3>
                 <span class="year">2026</span>
-                <p class="pitch">Un escape-farmer 3D à la première personne, sur le moteur C++ et Vulkan de l’école. C’est ce projet qui m’a valu mon stage.</p>
+                <p class="pitch">Un jeu à la première personne sur le moteur C++ et Vulkan de l’école. 
+                    C’est ce projet qui m’a valu mon stage chez Village Interactive Studio.</p>
             </div>
             <button class="media" type="button" data-video="media/Bloop_and_Fly.mp4" aria-label="Agrandir la vidéo de Bloop and Fly">
                 <img src="media/Bloop_and_Fly.jpg" alt="" loading="lazy">
@@ -325,24 +326,23 @@ code { font-family: var(--mono); font-size: .88em; }
                 <div>
                     <h4>Ce que j’ai fait</h4>
                     <ul>
-                        <li>L’IA des ennemis, construite sur une ActionList : ils errent dans une direction aléatoire, puis foncent sur la parcelle la plus proche dès qu’ils la détectent</li>
-                        <li>Les menus Start et Quit</li>
-                        <li>La pause, qui fige l’update du jeu</li>
+                        <li>L’IA des ennemis, construite sur un système d’ActionList : ils patrouillent puis attaquent les parcelles du joueur</li>
+                        <li>Les menus et l’écran de pause</li>
                     </ul>
                 </div>
                 <div>
                     <h4>Le choix technique</h4>
                     <p>Une ActionList plutôt qu’une machine à états : les ennemis ne réagissent pas au joueur, ils
                     s’en prennent à ses parcelles. Leur comportement est une suite d’actions simple et prévisible
-                    (errer au hasard, détecter la parcelle la plus proche, foncer dessus), sans transitions à gérer.
-                    Sur Unity 3C, au contraire, le joueur enchaîne des états qui s’excluent et changent selon ses
-                    entrées (saut, wall slide, wall stick…) : là, une machine à états était le bon outil.</p>
+                    (se déplacer, attaquer une parcelle, recommencer), sans transitions à gérer. Sur Unity 3C, au
+                    contraire, le joueur enchaîne des états qui s’excluent et changent selon ses entrées (saut,
+                    wall slide, wall stick…) : là, une machine à états était le bon outil.</p>
                 </div>
                 <dl class="facts">
                     <dt>Cadre</dt><dd>Gaming Campus</dd>
-                    <dt>Équipe</dt><dd>3 programmeurs, 2 artistes</dd>
+                    <dt>Équipe</dt><dd>3 programmeurs + 2 artistes</dd>
                     <dt>Durée</dt><dd>Mars à avril 2026</dd>
-                    <dt>Outils</dt><dd>C++, Vulkan, moteur maison</dd>
+                    <dt>Outils</dt><dd>C++, Vulkan</dd>
                 </dl>
             </div>
         </article>
@@ -352,16 +352,16 @@ code { font-family: var(--mono); font-size: .88em; }
                 <span class="kind">Expérience professionnelle</span>
                 <h3>Stage chez Village Interactive Studio</h3>
                 <span class="year">2026</span>
-                <p class="pitch">Développeur gameplay et UX/UI junior sur le prototype Unity de « Coco, le secret du voile », l’adaptation d’une bande dessinée gabonaise.</p>
+                <p class="pitch">Développeur gameplay et UX/UI junior sur le prototype Unity de « Coco, le secret du voile ».</p>
             </div>
             <div class="media empty"><span class="todo">Visuel du prototype, si le studio l’autorise</span></div>
             <div class="case-body">
                 <div>
                     <h4>Mes missions</h4>
                     <ul>
-                        <li>Les déplacements du personnage et le wall jump, avec saut variable</li>
-                        <li>L’IA ennemie, par une ActionList à priorités</li>
-                        <li>Les menus Start et Pause, avec un historique des scènes en pile</li>
+                        <li><span class="todo">Mission 1 : verbe d’action et élément technique</span></li>
+                        <li><span class="todo">Mission 2</span></li>
+                        <li><span class="todo">Mission 3</span></li>
                     </ul>
                 </div>
                 <div>
@@ -371,7 +371,7 @@ code { font-family: var(--mono); font-size: .88em; }
                 <dl class="facts">
                     <dt>Cadre</dt><dd>Stage, à distance</dd>
                     <dt>Durée</dt><dd>Juin à août 2026</dd>
-                    <dt>Outils</dt><dd>C#, Unity 6, UI Toolkit, Git</dd>
+                    <dt>Outils</dt><dd>Unity, C#</dd>
                 </dl>
             </div>
         </article>
@@ -380,11 +380,6 @@ code { font-family: var(--mono); font-size: .88em; }
             <h3 class="section-title">Autres projets</h3>
             <p>Projets d’école. Survolez une miniature pour voir la vidéo, cliquez pour l’agrandir.</p>
             <ul class="index">
-                <li>
-                    <div class="media empty"><span class="todo">capture ou vidéo</span></div>
-                    <div><h4>Unity 3C</h4><p>Un platformer 2D centré sur le game feel, avec un joueur codé sans Rigidbody ni CharacterController : collisions par raycasts, sauts variables avec coyote time et jump buffer, wall jump, wall slide et wall stick, orchestrés par une machine à états générique.</p></div>
-                    <span class="stack">C#, Unity, machine à états</span>
-                </li>
                 <li>
                     <button class="media" type="button" data-video="media/Arena_Shooter.mp4" aria-label="Agrandir la vidéo d’Arena Shooter"><img src="media/Arena_Shooter.jpg" alt="" loading="lazy"></button>
                     <div><h4>Arena Shooter</h4><p>FPS d’arène sur le moteur de rendu Ogre-Next. J’ai conçu la couche moteur qui relie le code du jeu à Ogre-Next.</p></div>
@@ -422,8 +417,8 @@ code { font-family: var(--mono); font-size: .88em; }
                 </li>
                 <li>
                     <button class="media" type="button" data-image="media/Lib_Math.jpg" aria-label="Agrandir la capture de la librairie mathématique"><img src="media/Lib_Math.jpg" alt="" loading="lazy"></button>
-                    <div><h4>Bibliothèque mathématique</h4><p>Projet solo : une bibliothèque C++ générique sans la STL. J’ai réimplémenté <code>std::vector</code>, <code>std::array</code> et <code>std::list</code>, puis des vecteurs et des matrices avec leurs opérations, le tout testé avec GoogleTest. <a href="https://github.com/yoann16/Mathematical_Library">Voir le code</a></p></div>
-                    <span class="stack">C++, templates, GoogleTest</span>
+                    <div><h4>Librairie mathématique</h4><p>Projet solo : vecteurs, matrices et itérateurs génériques avec des templates, pour un moteur de jeu. <a href="https://github.com/yoann16/Mathematical_Library">Voir le code</a></p></div>
+                    <span class="stack">C++, templates</span>
                 </li>
                 <li>
                     <!-- TODO : remplacer par une de tes photos (l'image actuelle est un artwork de jeu sous copyright) -->
@@ -444,10 +439,10 @@ code { font-family: var(--mono); font-size: .88em; }
     <section class="block" id="outils">
         <h2 class="section-title">Outils</h2>
         <dl class="list">
-            <dt>Langages</dt><dd>C++, C#, Python, Slang, LaTeX</dd>
-            <dt>Rendu et moteurs</dt><dd>Vulkan, pipeline graphique, Ogre-Next, SDL, SFML, Unity</dd>
-            <dt>Outillage</dt><dd>CMake, Git, RenderDoc, Emscripten, GoogleTest, Visual Studio, Doxygen, Blender</dd>
-            <dt>Notions</dt><dd>Architecture ECS, templates et POO, algèbre linéaire, machines à états, réseau TCP et UDP</dd>
+            <dt>Langages</dt><dd>C++, C#, Python, Slang</dd>
+            <dt>Rendu et moteurs</dt><dd>Vulkan, Ogre-Next, SDL, SFML, Unity</dd>
+            <dt>Outillage</dt><dd>CMake, Git, RenderDoc, Emscripten, Visual Studio, Doxygen, Blender</dd>
+            <dt>Notions</dt><dd>Architecture ECS, programmation générique, algèbre linéaire, réseau TCP et UDP</dd>
         </dl>
     </section>
 
@@ -455,7 +450,7 @@ code { font-family: var(--mono); font-size: .88em; }
     <section class="block" id="parcours">
         <h2 class="section-title">Parcours</h2>
         <dl class="list">
-            <dt>2024 à 2027</dt><dd>Bachelor Développeur Informatique, option Jeu Vidéo<small>Gaming Campus, Bordeaux. En 3<sup>e</sup> année. Pédagogie par projets : 19 projets en 3 ans, dont 15 en équipe de 2 à 7 (programmeurs et artistes).</small></dd>
+            <dt>2024 à 2027</dt><dd>Bachelor Développeur Informatique, option Jeu Vidéo<small>Gaming Campus, Bordeaux. En 3<sup>e</sup> année.</small></dd>
             <dt>Été 2026</dt><dd>Stage de développeur gameplay et UX/UI<small>Village Interactive Studio, à distance</small></dd>
             <dt>Janvier à juin 2026</dt><dd>Animateur d’ateliers de programmation Python<small>Jeunes-Science, Bordeaux</small></dd>
             <dt>2022 à 2024</dt><dd>Licence de physique<small>Université de Nantes</small></dd>
