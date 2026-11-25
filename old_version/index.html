@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <title>Yoann Joseph</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+        <style>
+            :root
+            {
+                --fond: #0f0f0f;
+                --fond2: #1a1a1a;
+                --texte: #e0e0e0;
+                --accent: #AC1F2D;
+                --bordure: #2a2a2a;
+            }
+            body
+            {
+                background-color: var(--fond2);
+                color: var(--texte);
+                font-family: 'Segoe UI', sans-serif;
+            }
+            h2
+            {
+                color:var(--texte);
+            }
+            .TitreSection
+            {
+                text-decoration : underline;
+                font-weight: bold;
+            }
+            .TitreGroupe
+            {
+                font-size: 40px;
+                font-weight: bold;
+                text-decoration: underline;
+                padding: 20px 0;
+            }
+            .GrilleImages
+            {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+                width: 400px;
+                flex-shrink: 0;
+            }
+            .GrilleImages .MediaPlaceHolder
+            {
+                width: 190px;
+                height: 130px;
+                box-sizing: border-box;
+            }
+            .MediaPlaceHolder
+            {
+                width: 300px;
+                height: 200px;
+                object-fit: cover;
+                flex-shrink: 0;
+                border: 5px solid var(--accent);
+            }
+            .BoutonRepo
+            {
+                display: inline-block;
+                padding: 10px 20px;
+                border: 2px solid var(--accent);
+                color: var(--texte);
+                text-decoration: none;
+                font-weight: bold;
+                white-space: nowrap;
+            }
+            .GrilleStack
+            {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 30px;
+                align-items: center;
+                padding: 20px;
+            }
+            .GrilleStack i
+            {
+                font-size: 80px;
+            }
+            .ParagrapheG, .ParagrapheD
+            {
+                display: flex;
+                align-items: center;
+                gap: 40px;
+                padding: 40px;
+            }
+            .ParagrapheClassic
+            {
+            }
+            nav
+            {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 40px;
+                background-color: var(--accent);
+            }
+            nav h1
+            {
+                font-size: 48px;
+                color: var(--fond);
+                margin-bottom: 10px;
+            }
+            .Contact
+            {
+                color: var(--fond);
+                margin: 5px 15px;
+                font-size: 20px;
+                font-weight: bold;
+                text-decoration: none;
+            }
+            .Presentation
+            {
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 40px;
+            }
+            .BodyPresentation
+            {
+            }
+            .BodyPresentation h2{padding-left: 20px;}
+            .Ecole
+            {
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 40px;
+            }
+            .BodyEcole
+            {
+            }
+            .Projet
+            {
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 40px;
+            }
+            .BodyProjet
+            {
+            }
+            .StackTechnique 
+            {
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 40px;
+            }
+            .BodyStackTechnique
+            {
+            }
+
+            @media (max-width: 768px)
+            {
+                .ParagrapheG, .ParagrapheD
+                {
+                    flex-direction: column;
+                }
+                .ParagrapheD
+                {
+                    flex-direction: column-reverse;
+                }
+            }
+        </style>
+    </head>
+    
+    <body>
+
+        <nav>
+            <h1>Yoann Joseph</h1>
+            <div>
+                <a class="Contact" href="https://github.com/yoann16" target="_blank">GitHub</a>
+                <a class="Contact" href="https://www.linkedin.com/in/yoann-joseph-etudiant/" target="_blank">LinkedIn</a>
+            </div>
+        </nav>
+
+        <section class="Presentation">
+            <h2 class="TitreGroupe">Qui je suis</h2>
+            <div class="BodyPresentation">
+                
+                <p class="ParagrapheClassic">
+                    Je suis étudiant en Bachelor Développement informatique, option Jeu vidéo, 
+                    au Gaming Campus de Bordeaux, en G.Tech 2. 
+                    Je m'intéresse beaucoup à la programmation bas niveau en C++ 
+                    et j'apprends à utiliser de nouveaux outils comme CMake, Unity, Slang, Python 
+                    et LaTeX pour rédiger mon CV. 
+                    Je m'inspire de nombreux jeux vidéo qui nourrissent ma créativité 
+                    et ma curiosité en matière de programmation et de game design. 
+                    Je m'intéresse beaucoup à la programmation graphique 
+                    et à la programmation de systèmes physiques. 
+                    Je recherche un stage de développement informatique de deux mois à partir de juin 2026.
+                </p>
+            </div>
+        </section>
+
+        <section class="Ecole">
+            <h2 class="TitreGroupe">Parcours</h2>
+            <div class="BodyEcole">
+                <div class="ParagrapheG">
+                    <!-- Bac -->
+                    <img class="MediaPlaceHolder" src="Lycée_Aristide_Briand.jpg" alt="Lycée Aristide Briand">
+
+                    <div>
+                        <h2 class="TitreSection">Bac STI2D</h2>   
+                        <p>Option Sciences de l'Informatique et du Numérique — 2020</p>
+                        <p>Lycée Aristide Briand, Saint-Nazaire</p>
+                    </div>
+                </div>
+
+
+                 <div class="ParagrapheD">
+                    <div>
+                        <h2 class="TitreSection">Licence de Physique</h2>
+                        <p>Université de Nantes - 2022/2024</p>
+                    </div>
+                    
+                    <!-- Université de Nantes -->
+                    <img class="MediaPlaceHolder" src="La-Faculte-des-Sciences-et-techniques-de-Nantes.jpg" alt="Université de Nantes">
+                 </div>
+
+                <div class="ParagrapheG">
+                    <!-- Gaming Campus -->
+                    <img class="MediaPlaceHolder" src="logo-gaming-campus.png" alt="Gaming Campus">
+
+                    <div>
+                        <h2 class="TitreSection">Gaming Campus</h2>   
+                        <p>Bachelor Développeur Informatique option Jeu Vidéo - 2024/2027</p>
+                    </div>
+                    
+                </div>
+
+               
+
+            </div>
+        </section>
+
+        <section class="Projet">
+            <h2 class="TitreGroupe">Projets</h2>
+            <div class="BodyProjet">
+                <div class="ParagrapheG">
+                    <video class="MediaPlaceHolder" controls muted preload="none">
+                        <source src="Bloop_and_Fly.mp4" type="video/mp4">
+                    </video>
+
+                    <div>
+                        <h2 class="TitreSection">Bloop and Fly</h2>
+                        
+                        <p>Bloop and Fly, est un jeu à la première personne développé en C++ 
+                            dans un moteur de jeu personnalisé.
+                            J'ai implémenté les ennemis et leurs comportements, 
+                            et j'ai appris à créer des ActionsLists.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="ParagrapheD">
+                    <div>
+                        <h2 class="TitreSection">Moteur 3D</h2>
+                        
+                        <p>Nous avons créé un moteur 3D sur mesure en C++ avec Vulkan 
+                            pour développer un rail shooter.  
+                            J'ai développé toute la pipeline graphique avec Vulkan durant ce projet.</p>
+                    </div>
+                        
+                    <video class="MediaPlaceHolder" controls muted preload="none">
+                        <source src="Moteur_3D.mp4" type="video/mp4">
+                    </video>
+                </div>
+
+                <div class="ParagrapheG">
+                    <video class="MediaPlaceHolder" controls preload="none">
+                        <source src="GameJam_2026.mp4" type="video/mp4">
+                    </video>
+
+                    <div>
+                        <h2 class="TitreSection">GameJam Février 2026</h2>
+                        
+                        <p>En équipe, nous avons créé un jeu de plateforme avec Unity en deux jours.  
+                        J'ai notamment travaillé sur la physique des plateformes.
+                        Les plateformes mobiles étaient prévues, mais pas implémentées, faute de temps.</p>
+                    </div>
+                </div>
+
+                <div class="ParagrapheD">
+                    <div>
+                        <h2 class="TitreSection">Arena Shooter</h2>
+                        
+                        <p>Cet Arena Shooter a été développé en C++ avec le moteur de rendu open source Ogre-Next.
+                            J'ai conçu la structure de l'engine qui relie le jeu à Ogre-Next.
+                        </p>
+                    </div>
+                        
+                    <video class="MediaPlaceHolder" controls muted preload="none">
+                        <source src="Arena_Shooter.mp4" type="video/mp4">
+                    </video>
+                </div>
+
+                <div class="ParagrapheG">
+                    <div class="GrilleImages">
+                        <img class="MediaPlaceHolder" src="BMP_2.png" alt="Traitement d'Image BMP">
+                        <img class="MediaPlaceHolder" src="BMP_3.png" alt="Traitement d'Image BMP">
+                        <img class="MediaPlaceHolder" src="BMP_4.png" alt="Traitement d'Image BMP">
+                    </div>
+
+                    <div>
+                        <h2 class="TitreSection">Application Traitement d'Image BMP</h2>
+                        
+                        <p>Il s'agit d'une application de traitement d'images en ligne de commande écrite en C++.
+                            Elle permet de modifier des images au format BMP.
+                            Ma mission était de mettre en place un filtre moyen et une fonction de rotation.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="ParagrapheD">
+                    <div>
+                        <h2 class="TitreSection">Projet IA d'un Boss</h2>
+                        
+                        <p>L'objectif était de créer l'intelligence artificielle d'un boss en C++.
+                            J'ai géré toute la partie CMake pour générer le projet.
+                        </p>
+                    </div>
+                        
+                    <video class="MediaPlaceHolder" controls muted preload="none">
+                        <source src="IA.mp4" type="video/mp4">
+                    </video>
+                </div>
+
+                <div class="ParagrapheG">
+                    <video class="MediaPlaceHolder" controls muted preload="none">
+                        <source src="Runner_3D.mp4" type="video/mp4">
+                    </video>
+
+                    <div>
+                        <h2 class="TitreSection">Runner 3D</h2>
+                        
+                        <p>L'objectif était de créer un Subway Surfer Like en C++.
+                            J'ai développé toute la partie moteur et la création des GameObjects.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="ParagrapheD">
+                    <div>
+                        <h2 class="TitreSection">Librairie Mathématique</h2>
+                        
+                        <p>Ce projet solo consistait à créer une bibliothèque mathématique en C++ pour un moteur de jeu.
+                            J'ai implémenté les classes Vector, Iterator, Array, Vecteur et Matrice, 
+                            ainsi que les différentes opérations sur les vecteurs et matrices 
+                            (produit vectoriel, produit scalaire, etc.).
+                        </p>
+                    </div>
+                        
+                    <a class="BoutonRepo" href="https://github.com/yoann16/Mathematical_Library.git" target="_blank">Voir le Repo</a>
+                </div>
+
+                <div class="ParagrapheG">
+                    <video class="MediaPlaceHolder" controls muted preload="none">
+                        <source src="Jeu_Aventure.mp4" type="video/mp4">
+                    </video>
+
+                    <div>
+                        <h2 class="TitreSection">Jeu d'Aventure</h2>
+                        
+                        <p>L'objectif était de créer un jeu de plateforme avec une direction artistique 
+                            qui ressemble à Super Metroid sur SNES, en C++.
+                            J'ai conçu l'éditeur de niveaux.</p>
+                    </div>
+                </div>
+
+                <div class="ParagrapheD">
+                    <div>
+                        <h2 class="TitreSection">MineSweeper</h2>
+                        
+                        <p>Le but de ce projet individuel était de créer un démineur en C++ en utilisant l'algorithme Flood Fill.</p>
+                    </div>
+                        
+                    <video class="MediaPlaceHolder" controls muted preload="none">
+                        <source src="MineSweeper.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+        </section>
+
+        <section class="StackTechnique">
+            <h2 class="TitreGroupe">Stack Technique</h2>
+            <div class="BodyStackTechnique">
+                
+                <div class="GrilleStack">
+                    <i class="devicon-cplusplus-plain colored"></i>
+                    <i class="devicon-vulkan-plain colored"></i>
+                    <i class="devicon-git-plain colored"></i>
+                    <i class="devicon-cmake-plain colored"></i>
+                    <i class="devicon-python-plain colored"></i>
+                    <i class="devicon-unity-plain colored"></i>
+                    <i class="devicon-blender-original colored"></i>
+                </div>
+            </div>
+        </section>
+
+
+    </body>
+</html>
