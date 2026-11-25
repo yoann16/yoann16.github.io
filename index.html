@@ -1,402 +1,575 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <title>Yoann Joseph</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
-        <style>
-            :root
-            {
-                --fond: #0f0f0f;
-                --fond2: #1a1a1a;
-                --texte: #e0e0e0;
-                --accent: #AC1F2D;
-                --bordure: #2a2a2a;
-            }
-            body
-            {
-                background-color: var(--fond2);
-                color: var(--texte);
-                font-family: 'Segoe UI', sans-serif;
-            }
-            h2
-            {
-                color:var(--texte);
-            }
-            .TitreSection
-            {
-                text-decoration : underline;
-                font-weight: bold;
-            }
-            .TitreGroupe
-            {
-                font-size: 40px;
-                font-weight: bold;
-                text-decoration: underline;
-                padding: 20px 0;
-            }
-            .GrilleImages
-            {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 10px;
-                width: 400px;
-                flex-shrink: 0;
-            }
-            .GrilleImages .MediaPlaceHolder
-            {
-                width: 190px;
-                height: 130px;
-                box-sizing: border-box;
-            }
-            .MediaPlaceHolder
-            {
-                width: 300px;
-                height: 200px;
-                object-fit: cover;
-                flex-shrink: 0;
-                border: 5px solid var(--accent);
-            }
-            .BoutonRepo
-            {
-                display: inline-block;
-                padding: 10px 20px;
-                border: 2px solid var(--accent);
-                color: var(--texte);
-                text-decoration: none;
-                font-weight: bold;
-                white-space: nowrap;
-            }
-            .GrilleStack
-            {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 30px;
-                align-items: center;
-                padding: 20px;
-            }
-            .GrilleStack i
-            {
-                font-size: 80px;
-            }
-            .ParagrapheG, .ParagrapheD
-            {
-                display: flex;
-                align-items: center;
-                gap: 40px;
-                padding: 40px;
-            }
-            .ParagrapheClassic
-            {
-            }
-            nav
-            {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                padding: 40px;
-                background-color: var(--accent);
-            }
-            nav h1
-            {
-                font-size: 48px;
-                color: var(--fond);
-                margin-bottom: 10px;
-            }
-            .Contact
-            {
-                color: var(--fond);
-                margin: 5px 15px;
-                font-size: 20px;
-                font-weight: bold;
-                text-decoration: none;
-            }
-            .Presentation
-            {
-                max-width: 800px;
-                margin: 0 auto;
-                padding: 40px;
-            }
-            .BodyPresentation
-            {
-            }
-            .BodyPresentation h2{padding-left: 20px;}
-            .Ecole
-            {
-                max-width: 800px;
-                margin: 0 auto;
-                padding: 40px;
-            }
-            .BodyEcole
-            {
-            }
-            .Projet
-            {
-                max-width: 800px;
-                margin: 0 auto;
-                padding: 40px;
-            }
-            .BodyProjet
-            {
-            }
-            .StackTechnique 
-            {
-                max-width: 800px;
-                margin: 0 auto;
-                padding: 40px;
-            }
-            .BodyStackTechnique
-            {
-            }
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yoann Joseph, programmeur moteur et rendu</title>
+<meta name="description" content="Portfolio de Yoann Joseph, étudiant programmeur C++ : moteurs de jeu, rendu temps réel avec Vulkan et sur CPU.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+<style>
+/* =====================================================================
+   CHARTE
+   Un aplat rouge cramoisi + une grille de pixels de framebuffer.
+   Texte blanc rosé, une seule famille (Archivo) jouée sur sa largeur.
+   La mono (IBM Plex Mono) ne sert qu'aux mentions techniques (formats, API).
+   ===================================================================== */
+:root {
+    --bg:      #8c1427;
+    --bg-deep: #6f0f1f;               /* fonds des médias et des encarts */
+    --ink:     #fbeff1;
+    --dim:     #ebc2c9;               /* texte secondaire, contraste ≈ 7:1 sur --bg */
+    --line:    rgba(255,255,255,.22);
+    --grid:    rgba(255,255,255,.07);
+    --todo:    #ffe066;
 
-            @media (max-width: 768px)
-            {
-                .ParagrapheG, .ParagrapheD
-                {
-                    flex-direction: column;
-                }
-                .ParagrapheD
-                {
-                    flex-direction: column-reverse;
-                }
-            }
-        </style>
-    </head>
-    
-    <body>
+    --font: "Archivo", system-ui, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, monospace;
+    --t-sm: 14px; --t-body: 17px; --t-md: 21px; --t-lg: 30px; --t-xl: 48px;
+}
 
-        <nav>
-            <h1>Yoann Joseph</h1>
-            <div>
-                <a class="Contact" href="https://github.com/yoann16" target="_blank">GitHub</a>
-                <a class="Contact" href="https://www.linkedin.com/in/yoann-joseph-etudiant/" target="_blank">LinkedIn</a>
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    margin: 0;
+    color: var(--ink);
+    font: 400 var(--t-body)/1.6 var(--font);
+    background-color: var(--bg);
+    /* la grille de pixels du framebuffer, fixe pendant le défilement */
+    background-image:
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 32px 32px;
+    background-attachment: fixed;
+    -webkit-font-smoothing: antialiased;
+}
+img, video, canvas { display: block; max-width: 100%; }
+a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+::selection { background: var(--ink); color: var(--bg); }
+.wrap { width: min(1180px, 100% - 48px); margin-inline: auto; }
+
+/* ---------- navigation ---------- */
+.top { display: flex; align-items: center; gap: 26px; padding: 32px 0; font-size: var(--t-sm); }
+.top .me { font-stretch: 120%; font-weight: 700; margin-right: auto; text-decoration: none; }
+.top a:not(.me) { color: var(--dim); text-decoration: none; }
+.top a:not(.me):hover { color: var(--ink); }
+
+/* =====================================================================
+   HERO
+   ===================================================================== */
+.hero { display: grid; grid-template-columns: 1fr 1.1fr; gap: 48px; align-items: center; padding: 48px 0 140px; }
+.name { font-stretch: 125%; font-weight: 800; font-size: clamp(56px, 8.2vw, 118px); line-height: .88; letter-spacing: -.035em; margin: 0 0 36px; }
+.role { font-size: var(--t-md); line-height: 1.4; font-weight: 500; margin: 0 0 16px; max-width: 24em; }
+.hero p { margin: 0 0 14px; max-width: 31em; }
+.hero .dim { color: var(--dim); }
+.dispo { border-left: 4px solid var(--ink); padding: 10px 0 10px 14px; margin-top: 28px !important; }
+.links { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: 24px; font-weight: 600; }
+
+/* --- le moteur CPU compilé en WebAssembly (deux instances : la théière, la démo) --- */
+.engine { margin: 0; }
+.engine-frame {
+    position: relative; aspect-ratio: 16 / 9;            /* le rendu du moteur est en 320 × 180 */
+    background: #1a1f40;                                  /* sa couleur de fond, en attendant le chargement */
+    border: 1px solid var(--line);
+}
+.engine-frame canvas {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    image-rendering: pixelated; touch-action: none;
+}
+.engine-frame canvas:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+.engine-status {                                         /* « chargement… », bouton de lancement, erreur */
+    position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: 16px;
+    color: var(--dim); font-size: var(--t-sm);
+}
+.engine.live .engine-status { display: none; }
+.engine-start {
+    padding: 12px 22px; border: 2px solid var(--ink); background: var(--bg);
+    color: var(--ink); font: 600 var(--t-body)/1.2 var(--font); cursor: pointer;
+}
+.engine-start:hover { background: var(--ink); color: var(--bg); }
+.engine figcaption { font-size: var(--t-sm); color: var(--dim); margin-top: 12px; max-width: 46em; }
+.keys { list-style: none; margin: 12px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 20px; font-size: var(--t-sm); color: var(--dim); }
+kbd {
+    display: inline-block; min-width: 1.7em; padding: 1px 6px; margin-right: 6px; text-align: center;
+    font: 500 13px var(--mono); color: var(--ink); border: 1px solid var(--line); border-bottom-width: 2px;
+}
+
+/* =====================================================================
+   PROJETS
+   ===================================================================== */
+.section-title { font-stretch: 125%; font-weight: 800; font-size: var(--t-xl); letter-spacing: -.025em; line-height: 1; margin: 0 0 48px; }
+
+.case { padding: 44px 0 80px; border-top: 2px solid var(--ink); }
+.case-head { display: grid; grid-template-columns: 1fr auto; gap: 6px 24px; align-items: baseline; margin-bottom: 28px; }
+.case h3 { margin: 0; font-stretch: 112%; font-weight: 750; font-size: clamp(30px, 4vw, 44px); letter-spacing: -.02em; line-height: 1.05; }
+.case .kind { color: var(--dim); font-size: var(--t-sm); grid-row: 1; grid-column: 1; align-self: end; margin-bottom: 4px; }
+.case-head .kind + h3 { grid-row: 2; }
+.case .year { font-size: var(--t-md); color: var(--dim); font-variant-numeric: tabular-nums; grid-row: 2; grid-column: 2; }
+.case .pitch { grid-column: 1 / -1; margin: 8px 0 0; font-size: var(--t-md); line-height: 1.45; max-width: 40em; color: var(--dim); }
+
+.case-body { display: grid; grid-template-columns: 1.15fr 1fr .8fr; gap: 40px; margin-top: 28px; }
+.case-body h4 { margin: 0 0 10px; font-size: var(--t-body); font-weight: 700; }
+.case-body ul { margin: 0; padding-left: 1.1em; }
+.case-body li { margin-bottom: 6px; }
+.case-body p { margin: 0; }
+.facts { margin: 0; align-content: start; display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; font-size: 15px; }
+.facts dt { color: var(--dim); }
+.facts dd { margin: 0; font-weight: 500; }
+
+/* médias : vidéo au survol, agrandissement au clic */
+.media {
+    position: relative; display: block; width: 100%; aspect-ratio: 16 / 9; padding: 0; overflow: hidden;
+    background: var(--bg-deep); border: 1px solid var(--line); cursor: zoom-in; color: inherit; font: inherit;
+}
+.media img, .media video { width: 100%; height: 100%; object-fit: cover; }
+.media video { position: absolute; inset: 0; opacity: 0; }
+.media.playing video { opacity: 1; }
+.media.empty { aspect-ratio: 32 / 9; cursor: default; display: grid; place-items: center; text-align: center; padding: 16px; font-size: var(--t-sm); color: var(--dim); }
+
+/* index des autres projets */
+.others { margin-top: 40px; }
+.others h3.section-title { font-size: var(--t-lg); margin-bottom: 8px; }
+.others > p { margin: 0 0 28px; color: var(--dim); }
+.index { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--ink); }
+.index li { display: grid; grid-template-columns: 200px 1fr 200px; gap: 32px; align-items: center; padding: 20px 0; border-bottom: 1px solid var(--line); }
+.index h4 { margin: 0 0 4px; font-size: var(--t-md); font-weight: 700; line-height: 1.25; }
+.index p { margin: 0; color: var(--dim); max-width: 40em; }
+.index .stack { font-size: var(--t-sm); color: var(--dim); }
+
+/* =====================================================================
+   OUTILS, PARCOURS, CONTACT
+   ===================================================================== */
+.block { padding: 120px 0 0; display: grid; grid-template-columns: 5fr 7fr; gap: 56px; }
+.block .section-title { margin: 0; }
+.list { margin: 0; display: grid; grid-template-columns: 11em 1fr; gap: 14px 24px; }
+.list dt { color: var(--dim); font-variant-numeric: tabular-nums; }
+.list dd { margin: 0; }
+.list dd small { display: block; color: var(--dim); font-size: 15px; }
+
+.contact { padding: 150px 0 110px; }
+.contact p { margin: 0 0 20px; color: var(--dim); max-width: 34em; }
+.mail { font-stretch: 125%; font-weight: 800; font-size: clamp(24px, 4.6vw, 60px); letter-spacing: -.03em; line-height: 1.05; text-decoration-thickness: 3px; text-underline-offset: 10px; overflow-wrap: anywhere; }
+
+footer { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 24px 0 36px; border-top: 1px solid var(--line); font-size: var(--t-sm); color: var(--dim); }
+footer .fmt { font-family: var(--mono); font-size: 13px; }
+
+/* lightbox */
+dialog.lightbox { padding: 0; border: 0; background: transparent; width: min(1200px, 94vw); max-width: none; overflow: visible; }
+dialog.lightbox::backdrop { background: rgba(40, 6, 12, .9); }
+dialog.lightbox video, dialog.lightbox img { width: 100%; background: #000; }
+dialog.lightbox button { position: absolute; top: -40px; right: 0; border: 0; background: none; color: var(--ink); font: 600 var(--t-sm) var(--font); cursor: pointer; }
+
+/* À COMPLÉTER : à supprimer une fois rempli */
+.todo { color: var(--todo); font-style: italic; border-bottom: 1px dashed var(--todo); }
+
+/* responsive */
+@media (max-width: 980px) {
+    .hero, .block { grid-template-columns: 1fr; gap: 40px; }
+    .hero { padding-bottom: 96px; }
+    .case-body { grid-template-columns: 1fr 1fr; }
+    .case-body > :last-child { grid-column: 1 / -1; }
+    .index li { grid-template-columns: 160px 1fr; }
+    .index .stack { grid-column: 2; }
+}
+@media (max-width: 620px) {
+    .top { flex-wrap: wrap; gap: 10px 18px; }
+    .top .me { width: 100%; }
+    .case-body { grid-template-columns: 1fr; gap: 28px; }
+    .index li { grid-template-columns: 1fr; gap: 12px; }
+    .index .stack { grid-column: auto; }
+    .list { grid-template-columns: 1fr; gap: 2px; }
+    .list dd { margin-bottom: 14px; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+
+<body>
+<div class="wrap">
+    <nav class="top" aria-label="Navigation">
+        <a class="me" href="#top">Yoann Joseph</a>
+        <a href="#projets">Projets</a>
+        <a href="#parcours">Parcours</a>
+        <a href="#contact">Contact</a>
+        <!-- TODO : déposer le PDF du CV à la racine du repo sous ce nom -->
+        <a href="CV_Yoann_Joseph.pdf">CV</a>
+    </nav>
+
+    <header class="hero" id="top">
+        <div>
+            <h1 class="name">Yoann<br>Joseph</h1>
+            <p class="role">Programmeur C++, moteurs de jeu et rendu temps réel.</p>
+            <p class="dim">3<sup>e</sup> année de Bachelor jeu vidéo au Gaming Campus de Bordeaux, après une licence de physique.
+               J’ai écrit un renderer Vulkan, un rastériseur CPU et des shaders en Slang.</p>
+            <p class="dispo">Je cherche un stage de 3 mois minimum en programmation C++, à partir de mai 2027.</p>
+            <div class="links">
+                <a href="https://github.com/yoann16">GitHub</a>
+                <a href="https://www.linkedin.com/in/yoann-joseph-etudiant/">LinkedIn</a>
+                <a href="mailto:yoannjosephinfo@gmail.com">yoannjosephinfo@gmail.com</a>
             </div>
-        </nav>
+        </div>
 
-        <section class="Presentation">
-            <h2 class="TitreGroupe">Qui je suis</h2>
-            <div class="BodyPresentation">
-                
-                <p class="ParagrapheClassic">
-                    Je suis étudiant en Bachelor Développement informatique, option Jeu vidéo, 
-                    au Gaming Campus de Bordeaux, en G.Tech 2. 
-                    Je m'intéresse beaucoup à la programmation bas niveau en C++ 
-                    et j'apprends à utiliser de nouveaux outils comme CMake, Unity, Slang, Python 
-                    et LaTeX pour rédiger mon CV. 
-                    Je m'inspire de nombreux jeux vidéo qui nourrissent ma créativité 
-                    et ma curiosité en matière de programmation et de game design. 
-                    Je m'intéresse beaucoup à la programmation graphique 
-                    et à la programmation de systèmes physiques. 
-                    Je recherche un stage de développement informatique de deux mois à partir de juin 2026.
-                </p>
+        <!-- Instance 1 du moteur : Assets/teapot.cfg dans #theiere, lancée au chargement de la page -->
+        <figure class="engine" id="engine-theiere">
+            <div class="engine-frame">
+                <canvas id="theiere" tabindex="0" aria-label="La théière de l’Utah, rendue en direct par mon moteur de rendu CPU" oncontextmenu="event.preventDefault()"></canvas>
+                <div class="engine-status">Chargement du moteur…</div>
             </div>
-        </section>
+            <figcaption>
+                La théière de l’Utah (Martin Newell, 1975), rendue en direct par mon moteur C++ :
+                chaque pixel est calculé sur le processeur, puis le code est compilé en WebAssembly pour tourner ici.
+                Cliquez dedans puis appuyez sur <kbd>T</kbd> pour voir les tuiles du rasterizer.
+            </figcaption>
+        </figure>
+    </header>
+</div>
 
-        <section class="Ecole">
-            <h2 class="TitreGroupe">Parcours</h2>
-            <div class="BodyEcole">
-                <div class="ParagrapheG">
-                    <!-- Bac -->
-                    <img class="MediaPlaceHolder" src="Lycée_Aristide_Briand.jpg" alt="Lycée Aristide Briand">
+<main class="wrap">
 
-                    <div>
-                        <h2 class="TitreSection">Bac STI2D</h2>   
-                        <p>Option Sciences de l'Informatique et du Numérique — 2020</p>
-                        <p>Lycée Aristide Briand, Saint-Nazaire</p>
-                    </div>
-                </div>
+    <!-- ======================= PROJETS ======================= -->
+    <section id="projets">
+        <h2 class="section-title">Projets</h2>
 
-
-                 <div class="ParagrapheD">
-                    <div>
-                        <h2 class="TitreSection">Licence de Physique</h2>
-                        <p>Université de Nantes - 2022/2024</p>
-                    </div>
-                    
-                    <!-- Université de Nantes -->
-                    <img class="MediaPlaceHolder" src="La-Faculte-des-Sciences-et-techniques-de-Nantes.jpg" alt="Université de Nantes">
-                 </div>
-
-                <div class="ParagrapheG">
-                    <!-- Gaming Campus -->
-                    <img class="MediaPlaceHolder" src="logo-gaming-campus.png" alt="Gaming Campus">
-
-                    <div>
-                        <h2 class="TitreSection">Gaming Campus</h2>   
-                        <p>Bachelor Développeur Informatique option Jeu Vidéo - 2024/2027</p>
-                    </div>
-                    
-                </div>
-
-               
-
+        <article class="case">
+            <div class="case-head">
+                <span class="kind">Rendu et moteur</span>
+                <h3>Moteur 3D Vulkan</h3>
+                <span class="year">2026</span>
+                <p class="pitch">Un moteur écrit de zéro en C++ et Vulkan, en architecture ECS, pour faire tourner un rail-shooter.</p>
             </div>
-        </section>
-
-        <section class="Projet">
-            <h2 class="TitreGroupe">Projets</h2>
-            <div class="BodyProjet">
-                <div class="ParagrapheG">
-                    <video class="MediaPlaceHolder" controls muted preload="none">
-                        <source src="Bloop_and_Fly.mp4" type="video/mp4">
-                    </video>
-
-                    <div>
-                        <h2 class="TitreSection">Bloop and Fly</h2>
-                        
-                        <p>Bloop and Fly, est un jeu à la première personne développé en C++ 
-                            dans un moteur de jeu personnalisé.
-                            J'ai implémenté les ennemis et leurs comportements, 
-                            et j'ai appris à créer des ActionsLists.
-                        </p>
-                    </div>
+            <button class="media" type="button" data-video="media/Moteur_3D.mp4" aria-label="Agrandir la vidéo du moteur Vulkan">
+                <img src="media/Moteur_3D.jpg" alt="" loading="lazy">
+            </button>
+            <div class="case-body">
+                <div>
+                    <h4>Ce que j’ai fait</h4>
+                    <ul>
+                        <li>Le renderer : <span class="todo">type de rendu, nombre de passes ?</span></li>
+                        <li>Les shaders en Slang et leur intégration dans la pipeline Vulkan</li>
+                        <li>L’éclairage : <span class="todo">Phong ou Blinn-Phong ? quelles lumières ?</span></li>
+                    </ul>
                 </div>
-
-                <div class="ParagrapheD">
-                    <div>
-                        <h2 class="TitreSection">Moteur 3D</h2>
-                        
-                        <p>Nous avons créé un moteur 3D sur mesure en C++ avec Vulkan 
-                            pour développer un rail shooter.  
-                            J'ai développé toute la pipeline graphique avec Vulkan durant ce projet.</p>
-                    </div>
-                        
-                    <video class="MediaPlaceHolder" controls muted preload="none">
-                        <source src="Moteur_3D.mp4" type="video/mp4">
-                    </video>
+                <div>
+                    <h4>Le problème le plus dur</h4>
+                    <p><span class="todo">Un problème précis et comment tu l’as résolu, en deux phrases.</span></p>
                 </div>
-
-                <div class="ParagrapheG">
-                    <video class="MediaPlaceHolder" controls preload="none">
-                        <source src="GameJam_2026.mp4" type="video/mp4">
-                    </video>
-
-                    <div>
-                        <h2 class="TitreSection">GameJam Février 2026</h2>
-                        
-                        <p>En équipe, nous avons créé un jeu de plateforme avec Unity en deux jours.  
-                        J'ai notamment travaillé sur la physique des plateformes.
-                        Les plateformes mobiles étaient prévues, mais pas implémentées, faute de temps.</p>
-                    </div>
-                </div>
-
-                <div class="ParagrapheD">
-                    <div>
-                        <h2 class="TitreSection">Arena Shooter</h2>
-                        
-                        <p>Cet Arena Shooter a été développé en C++ avec le moteur de rendu open source Ogre-Next.
-                            J'ai conçu la structure de l'engine qui relie le jeu à Ogre-Next.
-                        </p>
-                    </div>
-                        
-                    <video class="MediaPlaceHolder" controls muted preload="none">
-                        <source src="Arena_Shooter.mp4" type="video/mp4">
-                    </video>
-                </div>
-
-                <div class="ParagrapheG">
-                    <div class="GrilleImages">
-                        <img class="MediaPlaceHolder" src="BMP_2.png" alt="Traitement d'Image BMP">
-                        <img class="MediaPlaceHolder" src="BMP_3.png" alt="Traitement d'Image BMP">
-                        <img class="MediaPlaceHolder" src="BMP_4.png" alt="Traitement d'Image BMP">
-                    </div>
-
-                    <div>
-                        <h2 class="TitreSection">Application Traitement d'Image BMP</h2>
-                        
-                        <p>Il s'agit d'une application de traitement d'images en ligne de commande écrite en C++.
-                            Elle permet de modifier des images au format BMP.
-                            Ma mission était de mettre en place un filtre moyen et une fonction de rotation.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="ParagrapheD">
-                    <div>
-                        <h2 class="TitreSection">Projet IA d'un Boss</h2>
-                        
-                        <p>L'objectif était de créer l'intelligence artificielle d'un boss en C++.
-                            J'ai géré toute la partie CMake pour générer le projet.
-                        </p>
-                    </div>
-                        
-                    <video class="MediaPlaceHolder" controls muted preload="none">
-                        <source src="IA.mp4" type="video/mp4">
-                    </video>
-                </div>
-
-                <div class="ParagrapheG">
-                    <video class="MediaPlaceHolder" controls muted preload="none">
-                        <source src="Runner_3D.mp4" type="video/mp4">
-                    </video>
-
-                    <div>
-                        <h2 class="TitreSection">Runner 3D</h2>
-                        
-                        <p>L'objectif était de créer un Subway Surfer Like en C++.
-                            J'ai développé toute la partie moteur et la création des GameObjects.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="ParagrapheD">
-                    <div>
-                        <h2 class="TitreSection">Librairie Mathématique</h2>
-                        
-                        <p>Ce projet solo consistait à créer une bibliothèque mathématique en C++ pour un moteur de jeu.
-                            J'ai implémenté les classes Vector, Iterator, Array, Vecteur et Matrice, 
-                            ainsi que les différentes opérations sur les vecteurs et matrices 
-                            (produit vectoriel, produit scalaire, etc.).
-                        </p>
-                    </div>
-                        
-                    <a class="BoutonRepo" href="https://github.com/yoann16/Mathematical_Library.git" target="_blank">Voir le Repo</a>
-                </div>
-
-                <div class="ParagrapheG">
-                    <video class="MediaPlaceHolder" controls muted preload="none">
-                        <source src="Jeu_Aventure.mp4" type="video/mp4">
-                    </video>
-
-                    <div>
-                        <h2 class="TitreSection">Jeu d'Aventure</h2>
-                        
-                        <p>L'objectif était de créer un jeu de plateforme avec une direction artistique 
-                            qui ressemble à Super Metroid sur SNES, en C++.
-                            J'ai conçu l'éditeur de niveaux.</p>
-                    </div>
-                </div>
-
-                <div class="ParagrapheD">
-                    <div>
-                        <h2 class="TitreSection">MineSweeper</h2>
-                        
-                        <p>Le but de ce projet individuel était de créer un démineur en C++ en utilisant l'algorithme Flood Fill.</p>
-                    </div>
-                        
-                    <video class="MediaPlaceHolder" controls muted preload="none">
-                        <source src="MineSweeper.mp4" type="video/mp4">
-                    </video>
-                </div>
+                <dl class="facts">
+                    <dt>Cadre</dt><dd>Gaming Campus</dd>
+                    <dt>Équipe</dt><dd>3 personnes</dd>
+                    <dt>Durée</dt><dd>Février à mars 2026</dd>
+                    <dt>Outils</dt><dd>C++, Vulkan, Slang, CMake</dd>
+                </dl>
             </div>
-        </section>
+        </article>
 
-        <section class="StackTechnique">
-            <h2 class="TitreGroupe">Stack Technique</h2>
-            <div class="BodyStackTechnique">
-                
-                <div class="GrilleStack">
-                    <i class="devicon-cplusplus-plain colored"></i>
-                    <i class="devicon-vulkan-plain colored"></i>
-                    <i class="devicon-git-plain colored"></i>
-                    <i class="devicon-cmake-plain colored"></i>
-                    <i class="devicon-python-plain colored"></i>
-                    <i class="devicon-unity-plain colored"></i>
-                    <i class="devicon-blender-original colored"></i>
-                </div>
+        <article class="case">
+            <div class="case-head">
+                <span class="kind">Rendu et moteur</span>
+                <h3>Moteur de rendu CPU</h3>
+                <span class="year">2026</span>
+                <p class="pitch">Tout le rendu 3D calculé sur le processeur, sans API graphique, en 320 × 180 comme le mode 13h des démos PC des années 90. C’est lui qui fait tourner la théière en haut de cette page, et la démo « 1992 » ci-dessous : 8 scènes calées sur une musique générée par le programme.</p>
             </div>
-        </section>
+            <!-- Instance 2 du moteur : Assets/demo.cfg dans #demo, lancée seulement au clic (son + performances) -->
+            <figure class="engine" id="engine-demo">
+                <div class="engine-frame">
+                    <canvas id="demo" tabindex="0" aria-label="La démo « 1992 », rendue en direct par mon moteur de rendu CPU" oncontextmenu="event.preventDefault()"></canvas>
+                    <div class="engine-status"><button class="engine-start" id="demo-start" type="button">Lancer la démo « 1992 » (1 min, avec du son)</button></div>
+                </div>
+                <ul class="keys" aria-label="Commandes, après avoir cliqué dans la démo">
+                    <li><kbd>N</kbd>scène suivante</li>
+                    <li><kbd>B</kbd>scène précédente</li>
+                    <li><kbd>T</kbd>tuiles du rasterizer</li>
+                    <li><kbd>K</kbd>couper le son</li>
+                </ul>
+            </figure>
+            <div class="case-body">
+                <div>
+                    <h4>Ce que j’ai fait</h4>
+                    <ul>
+                        <li>Le chargement des meshes <span class="todo">format ?</span></li>
+                        <li>Les matériaux et les shaders logiciels</li>
+                        <li>L’éclairage <span class="todo">modèle ?</span></li>
+                        <li>Le portage dans le navigateur avec Emscripten</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Le problème le plus dur</h4>
+                    <p>Faire entrer les matériaux et les shaders dans la pipeline de rendu. <span class="todo">Comment tu l’as résolu ?</span></p>
+                </div>
+                <dl class="facts">
+                    <dt>Cadre</dt><dd>Gaming Campus</dd>
+                    <dt>Équipe</dt><dd>2 personnes</dd>
+                    <dt>Durée</dt><dd><span class="todo">dates</span></dd>
+                    <dt>Outils</dt><dd>C++, SDL, Emscripten</dd>
+                </dl>
+            </div>
+        </article>
 
+        <article class="case">
+            <div class="case-head">
+                <span class="kind">Gameplay</span>
+                <h3>Bloop &amp; Fly</h3>
+                <span class="year">2026</span>
+                <p class="pitch">Un jeu à la première personne sur le moteur C++ et Vulkan de l’école. C’est ce projet qui m’a valu mon stage.</p>
+            </div>
+            <button class="media" type="button" data-video="media/Bloop_and_Fly.mp4" aria-label="Agrandir la vidéo de Bloop and Fly">
+                <img src="media/Bloop_and_Fly.jpg" alt="" loading="lazy">
+            </button>
+            <div class="case-body">
+                <div>
+                    <h4>Ce que j’ai fait</h4>
+                    <ul>
+                        <li>L’IA des ennemis, construite sur un système d’ActionList <span class="todo">quels comportements ?</span></li>
+                        <li>Les menus et l’écran de pause</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Le problème le plus dur</h4>
+                    <p><span class="todo">Pourquoi une ActionList plutôt qu’une machine à états ? Qu’est-ce qui a résisté ?</span></p>
+                </div>
+                <dl class="facts">
+                    <dt>Cadre</dt><dd>Gaming Campus</dd>
+                    <dt>Équipe</dt><dd><span class="todo">N personnes</span></dd>
+                    <dt>Durée</dt><dd>Mars à avril 2026</dd>
+                    <dt>Outils</dt><dd>C++, Vulkan</dd>
+                </dl>
+            </div>
+        </article>
 
-    </body>
+        <article class="case">
+            <div class="case-head">
+                <span class="kind">Expérience professionnelle</span>
+                <h3>Stage chez Village Interactive Studio</h3>
+                <span class="year">2026</span>
+                <p class="pitch">Développeur gameplay et UX/UI junior sur le prototype Unity de « Coco, le secret du voile ».</p>
+            </div>
+            <div class="media empty"><span class="todo">Visuel du prototype, si le studio l’autorise</span></div>
+            <div class="case-body">
+                <div>
+                    <h4>Mes missions</h4>
+                    <ul>
+                        <li><span class="todo">Mission 1 : verbe d’action et élément technique</span></li>
+                        <li><span class="todo">Mission 2</span></li>
+                        <li><span class="todo">Mission 3</span></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Ce que j’en retiens</h4>
+                    <p><span class="todo">Ce que le travail en studio t’a appris que l’école ne t’apprenait pas.</span></p>
+                </div>
+                <dl class="facts">
+                    <dt>Cadre</dt><dd>Stage, à distance</dd>
+                    <dt>Durée</dt><dd>Juin à août 2026</dd>
+                    <dt>Outils</dt><dd>Unity, C#</dd>
+                </dl>
+            </div>
+        </article>
+
+        <div class="others">
+            <h3 class="section-title">Autres projets</h3>
+            <p>Projets d’école. Survolez une miniature pour voir la vidéo, cliquez pour l’agrandir.</p>
+            <ul class="index">
+                <li>
+                    <button class="media" type="button" data-video="media/Arena_Shooter.mp4" aria-label="Agrandir la vidéo d’Arena Shooter"><img src="media/Arena_Shooter.jpg" alt="" loading="lazy"></button>
+                    <div><h4>Arena Shooter</h4><p>FPS d’arène sur le moteur de rendu Ogre-Next. J’ai conçu la couche moteur qui relie le code du jeu à Ogre-Next.</p></div>
+                    <span class="stack">C++, Ogre-Next</span>
+                </li>
+                <li>
+                    <button class="media" type="button" data-video="media/GameJam_2026.mp4" aria-label="Agrandir la vidéo de la GameJam"><img src="media/GameJam_2026.jpg" alt="" loading="lazy"></button>
+                    <div><h4>GameJam de février 2026</h4><p>Un jeu de plateforme en deux jours, en équipe. Je me suis occupé de la physique des plateformes.</p></div>
+                    <span class="stack">Unity, C#</span>
+                </li>
+                <li>
+                    <button class="media" type="button" data-video="media/Runner_3D.mp4" aria-label="Agrandir la vidéo du Runner 3D"><img src="media/Runner_3D.jpg" alt="" loading="lazy"></button>
+                    <div><h4>Runner 3D</h4><p>Un runner façon Subway Surfers, terrain et obstacles générés procéduralement. J’ai écrit la partie moteur et le système de GameObjects.</p></div>
+                    <span class="stack">C++, génération procédurale</span>
+                </li>
+                <li>
+                    <button class="media" type="button" data-video="media/IA.mp4" aria-label="Agrandir la vidéo de l’IA de boss"><img src="media/IA.jpg" alt="" loading="lazy"></button>
+                    <div><h4>IA de boss</h4><p>Le comportement d’un boss en C++. J’ai mis en place toute la génération du projet avec CMake.</p></div>
+                    <span class="stack">C++, CMake</span>
+                </li>
+                <li>
+                    <button class="media" type="button" data-video="media/Jeu_Aventure.mp4" aria-label="Agrandir la vidéo du jeu d’aventure"><img src="media/Jeu_Aventure.jpg" alt="" loading="lazy"></button>
+                    <div><h4>Jeu d’aventure 2D</h4><p>Un plateformer dans l’esprit de Super Metroid. J’ai conçu l’éditeur de niveaux.</p></div>
+                    <span class="stack">C++</span>
+                </li>
+                <li>
+                    <button class="media" type="button" data-video="media/Shoot_Em_Up.mp4" aria-label="Agrandir la vidéo du shoot’em up"><img src="media/Shoot_Em_Up.jpg" alt="" loading="lazy"></button>
+                    <div><h4>Shoot’em up <span class="todo">nom ?</span></h4><p><span class="todo">Ce que c’est et ton rôle, en une phrase.</span></p></div>
+                    <span class="stack">C++, SFML</span>
+                </li>
+                <li>
+                    <div class="media empty"><span class="todo">capture</span></div>
+                    <div><h4>Dungeon Adventure</h4><p>Un dungeon crawler textuel multijoueur, avec des clients qui communiquent en TCP. <span class="todo">Ton rôle ?</span></p></div>
+                    <span class="stack">C++, réseau TCP</span>
+                </li>
+                <li>
+                    <button class="media" type="button" data-image="media/Lib_Math.jpg" aria-label="Agrandir la capture de la librairie mathématique"><img src="media/Lib_Math.jpg" alt="" loading="lazy"></button>
+                    <div><h4>Librairie mathématique</h4><p>Projet solo : vecteurs, matrices et itérateurs génériques avec des templates, pour un moteur de jeu. <a href="https://github.com/yoann16/Mathematical_Library">Voir le code</a></p></div>
+                    <span class="stack">C++, templates</span>
+                </li>
+                <li>
+                    <!-- TODO : remplacer par une de tes photos (l'image actuelle est un artwork de jeu sous copyright) -->
+                    <button class="media" type="button" data-image="media/BMP_2.jpg" aria-label="Agrandir l’image traitée"><img src="media/BMP_2.jpg" alt="" loading="lazy"></button>
+                    <div><h4>Traitement d’image BMP</h4><p>Lecture et modification d’images BMP en ligne de commande. J’ai codé le filtre moyen et la rotation.</p></div>
+                    <span class="stack">C++, format binaire</span>
+                </li>
+                <li>
+                    <button class="media" type="button" data-video="media/MineSweeper.mp4" aria-label="Agrandir la vidéo du démineur"><img src="media/MineSweeper.jpg" alt="" loading="lazy"></button>
+                    <div><h4>Démineur</h4><p>Projet solo en console. Les cases vides se dévoilent avec un flood fill.</p></div>
+                    <span class="stack">C++</span>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ======================= OUTILS ======================= -->
+    <section class="block" id="outils">
+        <h2 class="section-title">Outils</h2>
+        <dl class="list">
+            <dt>Langages</dt><dd>C++, C#, Python, Slang</dd>
+            <dt>Rendu et moteurs</dt><dd>Vulkan, Ogre-Next, SDL, SFML, Unity</dd>
+            <dt>Outillage</dt><dd>CMake, Git, RenderDoc, Emscripten, Visual Studio, Doxygen, Blender</dd>
+            <dt>Notions</dt><dd>Architecture ECS, programmation générique, algèbre linéaire, réseau TCP et UDP</dd>
+        </dl>
+    </section>
+
+    <!-- ======================= PARCOURS ======================= -->
+    <section class="block" id="parcours">
+        <h2 class="section-title">Parcours</h2>
+        <dl class="list">
+            <dt>2024 à 2027</dt><dd>Bachelor Développeur Informatique, option Jeu Vidéo<small>Gaming Campus, Bordeaux. En 3<sup>e</sup> année.</small></dd>
+            <dt>Été 2026</dt><dd>Stage de développeur gameplay et UX/UI<small>Village Interactive Studio, à distance</small></dd>
+            <dt>Janvier à juin 2026</dt><dd>Animateur d’ateliers de programmation Python<small>Jeunes-Science, Bordeaux</small></dd>
+            <dt>2022 à 2024</dt><dd>Licence de physique<small>Université de Nantes</small></dd>
+            <dt>2020</dt><dd>Bac STI2D, option Sciences de l’Informatique et du Numérique<small>Lycée Aristide Briand, Saint-Nazaire</small></dd>
+        </dl>
+    </section>
+
+    <!-- ======================= CONTACT ======================= -->
+    <section class="contact" id="contact">
+        <p>Un stage, une question sur un projet, un avis sur mon code : écrivez-moi.</p>
+        <a class="mail" href="mailto:yoannjosephinfo@gmail.com">yoannjosephinfo@gmail.com</a>
+    </section>
+</main>
+
+<footer class="wrap">
+    <span>Yoann Joseph, Bordeaux</span>
+    <span class="fmt">swapchain image 0, VK_FORMAT_B8G8R8A8_SRGB</span>
+</footer>
+
+<dialog class="lightbox" id="lightbox">
+    <button type="button" id="lightbox-close">Fermer</button>
+    <div id="lightbox-content"></div>
+</dialog>
+
+<script>
+/* =====================================================================
+   1. LE MOTEUR CPU, COMPILÉ EN WEBASSEMBLY
+   demo/renderer.js (build Emscripten avec -sMODULARIZE=1 -sEXPORT_NAME=createCpuEngine)
+   définit createCpuEngine(), qu'on appelle une fois par canvas :
+       argv[1] = le fichier de démo, argv[2] = le sélecteur CSS du canvas
+   Facultatif côté C++, pour ne pas calculer quand le canvas est hors de l'écran :
+       extern "C" EMSCRIPTEN_KEEPALIVE void cpu_pause()  { emscripten_pause_main_loop(); }
+       extern "C" EMSCRIPTEN_KEEPALIVE void cpu_resume() { emscripten_resume_main_loop(); }
+   ===================================================================== */
+const PAGE_TITLE = document.title;
+
+// SDL écrit le titre de sa fenêtre dans document.title : on remet celui de la page à chaque fois.
+new MutationObserver(() => {
+    if (document.title !== PAGE_TITLE) document.title = PAGE_TITLE;
+}).observe(document.querySelector("title"), { childList: true });
+
+// demo/renderer.js n'est chargé qu'une fois, même si on lance deux instances.
+let engineScript = null;
+function loadEngineScript() {
+    engineScript ??= new Promise((resolve, reject) => {
+        const s = document.createElement("script");
+        s.src = "demo/renderer.js";
+        s.onload = () => resolve(window.createCpuEngine);
+        s.onerror = () => reject(new Error("demo/renderer.js introuvable"));
+        document.head.appendChild(s);
+    });
+    return engineScript;
+}
+
+async function startEngine(figureId, canvasId, demoFile) {
+    const figure = document.getElementById(figureId);
+    const canvas = document.getElementById(canvasId);
+    const status = figure.querySelector(".engine-status");
+    try {
+        const createCpuEngine = await loadEngineScript();
+        const engine = await createCpuEngine({
+            canvas,
+            arguments: [demoFile, "#" + canvasId],
+            locateFile: file => "demo/" + file,          // renderer.wasm et renderer.data sont dans demo/
+            print:    text => console.log(`[${canvasId}]`, text),
+            printErr: text => console.warn(`[${canvasId}]`, text),
+        });
+        figure.classList.add("live");
+        pauseWhenHidden(engine, canvas);
+        return engine;
+    } catch (error) {
+        console.error(error);
+        status.textContent = "Le moteur n’a pas pu démarrer dans ce navigateur.";
+    }
+}
+
+// Hors de l'écran, on suspend la boucle du moteur (si le build exporte cpu_pause / cpu_resume).
+function pauseWhenHidden(engine, canvas) {
+    if (typeof engine._cpu_pause !== "function") return;
+    new IntersectionObserver(([entry]) => {
+        entry.isIntersecting ? engine._cpu_resume() : engine._cpu_pause();
+    }).observe(canvas);
+}
+
+// La théière démarre tout de suite, sauf si le visiteur a demandé à réduire les animations.
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+if (reduceMotion) {
+    const status = document.querySelector("#engine-theiere .engine-status");
+    status.innerHTML = '<button class="engine-start" type="button">Lancer le rendu</button>';
+    status.querySelector("button").addEventListener("click", () => startEngine("engine-theiere", "theiere", "Assets/teapot.cfg"), { once: true });
+} else {
+    startEngine("engine-theiere", "theiere", "Assets/teapot.cfg");
+}
+
+// La démo « 1992 » attend un clic : c'est ce geste qui autorise le navigateur à jouer le son.
+document.getElementById("demo-start").addEventListener("click", event => {
+    event.currentTarget.disabled = true;
+    event.currentTarget.textContent = "Chargement de la démo…";
+    startEngine("engine-demo", "demo", "Assets/demo.cfg").then(() => document.getElementById("demo").focus());
+}, { once: true });
+
+/* =====================================================================
+   2. VIDÉOS : lecture au survol, agrandissement au clic
+   ===================================================================== */
+const canHover = matchMedia("(hover: hover)").matches;
+document.querySelectorAll(".media[data-video]").forEach(media => {
+    let video = null;   // créée au premier survol : rien n'est téléchargé au chargement de la page
+    media.addEventListener("mouseenter", () => {
+        if (!canHover) return;
+        if (!video) {
+            video = Object.assign(document.createElement("video"), { src: media.dataset.video, muted: true, loop: true, playsInline: true });
+            media.appendChild(video);
+        }
+        video.play().then(() => media.classList.add("playing")).catch(() => {});
+    });
+    media.addEventListener("mouseleave", () => { if (video) { video.pause(); media.classList.remove("playing"); } });
+    media.addEventListener("click", () => openLightbox(`<video src="${media.dataset.video}" controls autoplay playsinline></video>`));
+});
+document.querySelectorAll(".media[data-image]").forEach(media =>
+    media.addEventListener("click", () => openLightbox(`<img src="${media.dataset.image}" alt="">`)));
+
+const lightbox = document.getElementById("lightbox");
+const lightboxContent = document.getElementById("lightbox-content");
+function openLightbox(html) { lightboxContent.innerHTML = html; lightbox.showModal(); }
+lightbox.addEventListener("close", () => { lightboxContent.innerHTML = ""; });
+lightbox.addEventListener("click", e => { if (e.target === lightbox) lightbox.close(); });
+document.getElementById("lightbox-close").addEventListener("click", () => lightbox.close());
+</script>
+</body>
 </html>
