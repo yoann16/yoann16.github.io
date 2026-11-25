@@ -13,6 +13,7 @@ par mon moteur de rendu CPU, écrit en C++ et compilé en WebAssembly avec Emscr
 - `demo/` : le build web du moteur (`renderer.js`, `renderer.wasm`, `renderer.data`)
 - `media/` : vidéos et miniatures des projets
 - `PORTAGE_WASM.md` : comment le moteur a été porté et comment mettre à jour le build
+- `old_version/` : la première version du portfolio, gardée pour comparer
 
 ## Technologies
 
