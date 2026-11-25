@@ -325,14 +325,18 @@ code { font-family: var(--mono); font-size: .88em; }
                 <div>
                     <h4>Ce que j’ai fait</h4>
                     <ul>
-                        <li>L’IA des ennemis, construite sur un système d’ActionList <span class="todo">quels comportements ?</span></li>
+                        <li>L’IA des ennemis, construite sur une ActionList : ils errent dans une direction aléatoire, puis foncent sur la parcelle la plus proche dès qu’ils la détectent</li>
                         <li>Les menus Start et Quit</li>
                         <li>La pause, qui fige l’update du jeu</li>
                     </ul>
                 </div>
                 <div>
-                    <h4>Le problème le plus dur</h4>
-                    <p><span class="todo">Pourquoi une ActionList plutôt qu’une machine à états ? Qu’est-ce qui a résisté ?</span></p>
+                    <h4>Le choix technique</h4>
+                    <p>Une ActionList plutôt qu’une machine à états : les ennemis ne réagissent pas au joueur, ils
+                    s’en prennent à ses parcelles. Leur comportement est une suite d’actions simple et prévisible
+                    (errer au hasard, détecter la parcelle la plus proche, foncer dessus), sans transitions à gérer.
+                    Sur Unity 3C, au contraire, le joueur enchaîne des états qui s’excluent et changent selon ses
+                    entrées (saut, wall slide, wall stick…) : là, une machine à états était le bon outil.</p>
                 </div>
                 <dl class="facts">
                     <dt>Cadre</dt><dd>Gaming Campus</dd>
