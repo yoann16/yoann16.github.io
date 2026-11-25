@@ -162,6 +162,8 @@ dialog.lightbox::backdrop { background: rgba(40, 6, 12, .9); }
 dialog.lightbox video, dialog.lightbox img { width: 100%; background: #000; }
 dialog.lightbox button { position: absolute; top: -40px; right: 0; border: 0; background: none; color: var(--ink); font: 600 var(--t-sm) var(--font); cursor: pointer; }
 
+code { font-family: var(--mono); font-size: .88em; }
+
 /* À COMPLÉTER : à supprimer une fois rempli */
 .todo { color: var(--todo); font-style: italic; border-bottom: 1px dashed var(--todo); }
 
@@ -194,6 +196,7 @@ dialog.lightbox button { position: absolute; top: -40px; right: 0; border: 0; ba
         <a href="#projets">Projets</a>
         <a href="#parcours">Parcours</a>
         <a href="#contact">Contact</a>
+        <!-- TODO : déposer le PDF du CV à la racine du repo sous ce nom -->
         <a href="CV_Yoann_Joseph.pdf">CV</a>
     </nav>
 
@@ -257,7 +260,7 @@ dialog.lightbox button { position: absolute; top: -40px; right: 0; border: 0; ba
                     <h4>Ce que j’ai fait</h4>
                     <ul>
                         <li>Le chargement des meshes OBJ, avec déduplication des sommets : 1 984 → 559 sommets pour la même sphère</li>
-                        <li>Le système de matériaux et les fragment shaders, sur le modèle d’une API graphique comme Vulkan</li>
+                        <li>Le système de matériaux et les fragment shaders, sur le modèle de Vulkan</li>
                         <li>L’éclairage de Lambert, avec des lumières directionnelles</li>
                         <li>Le portage dans le navigateur avec Emscripten, pour cette page</li>
                     </ul>
@@ -265,15 +268,16 @@ dialog.lightbox button { position: absolute; top: -40px; right: 0; border: 0; ba
                 <div>
                     <h4>Le problème le plus dur</h4>
                     <p>Faire arriver les données des matériaux jusqu’au shader. Au départ, chaque mesh n’avait qu’une couleur
-                    écrite en dur. Je me suis inspiré de Vulkan : les petites données propres à chaque objet passent comme des
-                    push constants, et les ressources partagées sont référencées dans une table de liaison, comme un descriptor
-                    set. Le fragment shader est une <code>std::function</code> à la signature fixe qui renvoie la couleur du pixel
-                    (<code>glm::vec4</code>) : ajouter un shader revient à écrire une nouvelle fonction, sans toucher au rasterizer.</p>
+                    écrite en dur. Je me suis inspiré de Vulkan : chaque objet envoie seulement l’identifiant de son matériau
+                    dans un push constant, et le shader retrouve le matériau et les lumières dans des tableaux référencés par
+                    un descriptor set. Le fragment shader est un pointeur de fonction à la signature fixe, qui reçoit le fragment,
+                    le descriptor set et le push constant et renvoie la couleur du pixel : ajouter un shader revient à écrire
+                    une nouvelle fonction, sans toucher au rasterizer.</p>
                 </div>
                 <dl class="facts">
                     <dt>Cadre</dt><dd>Gaming Campus</dd>
-                    <dt>Équipe</dt><dd>2 personnes</dd>
-                    <dt>Durée</dt><dd><span class="todo">dates</span></dd>
+                    <dt>Équipe</dt><dd>2 programmeurs</dd>
+                    <dt>Durée</dt><dd>Octobre à novembre 2026</dd>
                     <dt>Outils</dt><dd>C++, SDL, Emscripten</dd>
                 </dl>
             </div>
@@ -284,7 +288,7 @@ dialog.lightbox button { position: absolute; top: -40px; right: 0; border: 0; ba
                 <span class="kind">Rendu et moteur</span>
                 <h3>Moteur 3D Vulkan</h3>
                 <span class="year">2026</span>
-                <p class="pitch">Un moteur écrit de zéro en C++ et Vulkan, en architecture ECS, pour faire tourner un rail-shooter.</p>
+                <p class="pitch">Un moteur de jeu 3D écrit sans moteur existant, en Vulkan 1.3 et en architecture ECS, pour un rail shooter dont le rail est généré par des splines de Catmull-Rom.</p>
             </div>
             <button class="media" type="button" data-video="media/Moteur_3D.mp4" aria-label="Agrandir la vidéo du moteur Vulkan">
                 <img src="media/Moteur_3D.jpg" alt="" loading="lazy">
@@ -293,20 +297,25 @@ dialog.lightbox button { position: absolute; top: -40px; right: 0; border: 0; ba
                 <div>
                     <h4>Ce que j’ai fait</h4>
                     <ul>
-                        <li>Le renderer : <span class="todo">type de rendu, nombre de passes ?</span></li>
-                        <li>Les shaders en Slang et leur intégration dans la pipeline Vulkan</li>
-                        <li>L’éclairage : <span class="todo">Phong ou Blinn-Phong ? quelles lumières ?</span></li>
+                        <li>La couche Vulkan : instance, choix du GPU, device et swapchain, avec Vulkan-Hpp en RAII</li>
+                        <li>Le renderer : pipeline en dynamic rendering, 2 frames en vol synchronisées par fences et sémaphores, buffers copiés en mémoire GPU par staging buffer</li>
+                        <li>Les shaders, écrits en Slang et compilés en SPIR-V</li>
+                        <li>L’éclairage diffus : modèle de Lambert, lumière ponctuelle avec atténuation</li>
                     </ul>
                 </div>
                 <div>
                     <h4>Le problème le plus dur</h4>
-                    <p><span class="todo">Un problème précis et comment tu l’as résolu, en deux phrases.</span></p>
+                    <p>Séparer le moteur de Vulkan : je ne savais pas où placer la frontière entre l’ECS et l’API. Je l’ai
+                    découpée en deux. Une classe possède tout ce qui dépend de la machine (instance, device, swapchain),
+                    et le renderer s’abonne au bus d’événements écrit par un coéquipier : quand une entité reçoit un
+                    composant mesh, il crée lui-même ses buffers GPU et l’ajoute à sa liste de rendu. Le code de jeu ne
+                    touche jamais à Vulkan.</p>
                 </div>
                 <dl class="facts">
                     <dt>Cadre</dt><dd>Gaming Campus</dd>
-                    <dt>Équipe</dt><dd>3 personnes</dd>
+                    <dt>Équipe</dt><dd>3 programmeurs</dd>
                     <dt>Durée</dt><dd>Février à mars 2026</dd>
-                    <dt>Outils</dt><dd>C++, Vulkan, Slang, CMake</dd>
+                    <dt>Outils</dt><dd>C++, Vulkan 1.3, Slang, ECS</dd>
                 </dl>
             </div>
         </article>
@@ -316,8 +325,7 @@ dialog.lightbox button { position: absolute; top: -40px; right: 0; border: 0; ba
                 <span class="kind">Gameplay</span>
                 <h3>Bloop &amp; Fly</h3>
                 <span class="year">2026</span>
-                <p class="pitch">Un jeu à la première personne sur le moteur C++ et Vulkan de l’école. 
-                    C’est ce projet qui m’a valu mon stage chez Village Interactive Studio.</p>
+                <p class="pitch">Un escape-farmer 3D à la première personne, sur le moteur C++ et Vulkan de l’école. C’est ce projet qui m’a valu mon stage.</p>
             </div>
             <button class="media" type="button" data-video="media/Bloop_and_Fly.mp4" aria-label="Agrandir la vidéo de Bloop and Fly">
                 <img src="media/Bloop_and_Fly.jpg" alt="" loading="lazy">
@@ -326,23 +334,59 @@ dialog.lightbox button { position: absolute; top: -40px; right: 0; border: 0; ba
                 <div>
                     <h4>Ce que j’ai fait</h4>
                     <ul>
-                        <li>L’IA des ennemis, construite sur un système d’ActionList : ils patrouillent puis attaquent les parcelles du joueur</li>
-                        <li>Les menus et l’écran de pause</li>
+                        <li>L’IA des ennemis, construite sur une ActionList : ils errent dans une direction aléatoire, puis foncent sur la parcelle la plus proche dès qu’ils la détectent</li>
+                        <li>Les menus Start et Quit</li>
+                        <li>La pause, qui fige l’update du jeu</li>
                     </ul>
                 </div>
                 <div>
                     <h4>Le choix technique</h4>
                     <p>Une ActionList plutôt qu’une machine à états : les ennemis ne réagissent pas au joueur, ils
                     s’en prennent à ses parcelles. Leur comportement est une suite d’actions simple et prévisible
-                    (se déplacer, attaquer une parcelle, recommencer), sans transitions à gérer. Sur Unity 3C, au
-                    contraire, le joueur enchaîne des états qui s’excluent et changent selon ses entrées (saut,
-                    wall slide, wall stick…) : là, une machine à états était le bon outil.</p>
+                    (errer au hasard, détecter la parcelle la plus proche, foncer dessus), sans transitions à gérer.
+                    Sur Unity 3C, au contraire, le joueur enchaîne des états qui s’excluent et changent selon ses
+                    entrées (saut, wall slide, wall stick…) : là, une machine à états était le bon outil.</p>
                 </div>
                 <dl class="facts">
                     <dt>Cadre</dt><dd>Gaming Campus</dd>
-                    <dt>Équipe</dt><dd>3 programmeurs + 2 artistes</dd>
+                    <dt>Équipe</dt><dd>3 programmeurs, 2 artistes</dd>
                     <dt>Durée</dt><dd>Mars à avril 2026</dd>
-                    <dt>Outils</dt><dd>C++, Vulkan</dd>
+                    <dt>Outils</dt><dd>C++, Vulkan, moteur maison</dd>
+                </dl>
+            </div>
+        </article>
+
+        <article class="case">
+            <div class="case-head">
+                <span class="kind">Réseau</span>
+                <h3>Dungeon crawler multijoueur</h3>
+                <span class="year">2026</span>
+                <p class="pitch">Un dungeon crawler multijoueur en temps réel, entièrement en C++, où les clients communiquent avec un serveur en TCP. Mon sujet de partiel de fin de 2<sup>e</sup> année, que j’ai refait seul.</p>
+            </div>
+            <button class="media" type="button" data-video="media/Dungeon_Crawler.mp4" aria-label="Agrandir la vidéo du serveur et d’un client">
+                <img src="media/Dungeon_Crawler.jpg" alt="" loading="lazy" style="object-fit: contain; background: #0c0c0c">
+            </button>
+            <div class="case-body">
+                <div>
+                    <h4>Ce que j’ai fait</h4>
+                    <ul>
+                        <li>Le serveur, qui gère toute la logique : état du donjon, positions, combats, inventaires</li>
+                        <li>Un protocole texte, ligne par ligne : <code>LOOK</code>, <code>MOVE</code>, <code>ATTACK</code>, <code>PICKUP</code>, <code>STATUS</code>, <code>SAY</code>, <code>QUIT</code>, avec validation des commandes</li>
+                        <li>Le donjon modélisé en graphe de 4 salles, et des combats résolus côté serveur puis diffusés à tous les joueurs</li>
+                        <li>Plusieurs clients simultanés, une file de messages côté serveur et la détection des déconnexions</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Le problème le plus dur</h4>
+                    <p>TCP envoie un flux d’octets, pas des messages : une commande peut arriver en plusieurs morceaux,
+                    ou deux commandes dans le même paquet. J’accumule les octets reçus dans un tampon
+                    (<code>std::string</code>) et je ne découpe qu’aux fins de ligne, pour reconstituer chaque commande complète.</p>
+                </div>
+                <dl class="facts">
+                    <dt>Cadre</dt><dd>Gaming Campus</dd>
+                    <dt>Équipe</dt><dd>Solo</dd>
+                    <dt>Durée</dt><dd>Fin de 2<sup>e</sup> année, 2026</dd>
+                    <dt>Outils</dt><dd>C++, sockets TCP, threads</dd>
                 </dl>
             </div>
         </article>
@@ -352,26 +396,25 @@ dialog.lightbox button { position: absolute; top: -40px; right: 0; border: 0; ba
                 <span class="kind">Expérience professionnelle</span>
                 <h3>Stage chez Village Interactive Studio</h3>
                 <span class="year">2026</span>
-                <p class="pitch">Développeur gameplay et UX/UI junior sur le prototype Unity de « Coco, le secret du voile ».</p>
+                <p class="pitch">Développeur gameplay et UX/UI junior sur le prototype Unity de « Coco, le secret du voile », l’adaptation d’une bande dessinée gabonaise.</p>
             </div>
-            <div class="media empty"><span class="todo">Visuel du prototype, si le studio l’autorise</span></div>
             <div class="case-body">
                 <div>
                     <h4>Mes missions</h4>
                     <ul>
-                        <li><span class="todo">Mission 1 : verbe d’action et élément technique</span></li>
-                        <li><span class="todo">Mission 2</span></li>
-                        <li><span class="todo">Mission 3</span></li>
+                        <li>Les déplacements du personnage et le wall jump, avec saut variable</li>
+                        <li>L’IA ennemie, par une ActionList à priorités</li>
+                        <li>Les menus Start et Pause, avec un historique des scènes en pile</li>
                     </ul>
                 </div>
                 <div>
                     <h4>Ce que j’en retiens</h4>
-                    <p><span class="todo">Ce que le travail en studio t’a appris que l’école ne t’apprenait pas.</span></p>
+                    <p>Le télétravail, et la prise en main rapide d’outils différents de ceux de l’école, comme Unity 6 et UI Toolkit.</p>
                 </div>
                 <dl class="facts">
                     <dt>Cadre</dt><dd>Stage, à distance</dd>
                     <dt>Durée</dt><dd>Juin à août 2026</dd>
-                    <dt>Outils</dt><dd>Unity, C#</dd>
+                    <dt>Outils</dt><dd>C#, Unity 6, UI Toolkit, Git</dd>
                 </dl>
             </div>
         </article>
@@ -380,6 +423,11 @@ dialog.lightbox button { position: absolute; top: -40px; right: 0; border: 0; ba
             <h3 class="section-title">Autres projets</h3>
             <p>Projets d’école. Survolez une miniature pour voir la vidéo, cliquez pour l’agrandir.</p>
             <ul class="index">
+                <li>
+                    <button class="media" type="button" data-video="media/Unity_3C.mp4" aria-label="Agrandir la vidéo d’Unity 3C"><img src="media/Unity_3C.jpg" alt="" loading="lazy"></button>
+                    <div><h4>Unity 3C</h4><p>Un platformer 2D centré sur le game feel, avec un joueur codé sans Rigidbody ni CharacterController : collisions par raycasts, sauts variables avec coyote time et jump buffer, wall jump, wall slide et wall stick, orchestrés par une machine à états générique.</p></div>
+                    <span class="stack">C#, Unity, machine à états</span>
+                </li>
                 <li>
                     <button class="media" type="button" data-video="media/Arena_Shooter.mp4" aria-label="Agrandir la vidéo d’Arena Shooter"><img src="media/Arena_Shooter.jpg" alt="" loading="lazy"></button>
                     <div><h4>Arena Shooter</h4><p>FPS d’arène sur le moteur de rendu Ogre-Next. J’ai conçu la couche moteur qui relie le code du jeu à Ogre-Next.</p></div>
@@ -407,18 +455,13 @@ dialog.lightbox button { position: absolute; top: -40px; right: 0; border: 0; ba
                 </li>
                 <li>
                     <button class="media" type="button" data-video="media/Shoot_Em_Up.mp4" aria-label="Agrandir la vidéo du shoot’em up"><img src="media/Shoot_Em_Up.jpg" alt="" loading="lazy"></button>
-                    <div><h4>Shoot’em up <span class="todo">nom ?</span></h4><p><span class="todo">Ce que c’est et ton rôle, en une phrase.</span></p></div>
+                    <div><h4>Shoot’em up</h4><p>Mon premier moteur 2D, réalisé à deux : la boucle de jeu, les collisions AABB et le rendu avec SFML.</p></div>
                     <span class="stack">C++, SFML</span>
                 </li>
                 <li>
-                    <div class="media empty"><span class="todo">capture</span></div>
-                    <div><h4>Dungeon Adventure</h4><p>Un dungeon crawler textuel multijoueur, avec des clients qui communiquent en TCP. <span class="todo">Ton rôle ?</span></p></div>
-                    <span class="stack">C++, réseau TCP</span>
-                </li>
-                <li>
                     <button class="media" type="button" data-image="media/Lib_Math.jpg" aria-label="Agrandir la capture de la librairie mathématique"><img src="media/Lib_Math.jpg" alt="" loading="lazy"></button>
-                    <div><h4>Librairie mathématique</h4><p>Projet solo : vecteurs, matrices et itérateurs génériques avec des templates, pour un moteur de jeu. <a href="https://github.com/yoann16/Mathematical_Library">Voir le code</a></p></div>
-                    <span class="stack">C++, templates</span>
+                    <div><h4>Bibliothèque mathématique</h4><p>Projet solo : une bibliothèque C++ générique sans la STL. J’ai réimplémenté <code>std::vector</code>, <code>std::array</code> et <code>std::list</code>, puis des vecteurs et des matrices avec leurs opérations, le tout testé avec GoogleTest. <a href="https://github.com/yoann16/Mathematical_Library">Voir le code</a></p></div>
+                    <span class="stack">C++, templates, GoogleTest</span>
                 </li>
                 <li>
                     <!-- TODO : remplacer par une de tes photos (l'image actuelle est un artwork de jeu sous copyright) -->
@@ -439,10 +482,10 @@ dialog.lightbox button { position: absolute; top: -40px; right: 0; border: 0; ba
     <section class="block" id="outils">
         <h2 class="section-title">Outils</h2>
         <dl class="list">
-            <dt>Langages</dt><dd>C++, C#, Python, Slang</dd>
-            <dt>Rendu et moteurs</dt><dd>Vulkan, Ogre-Next, SDL, SFML, Unity</dd>
-            <dt>Outillage</dt><dd>CMake, Git, RenderDoc, Emscripten, Visual Studio, Doxygen, Blender</dd>
-            <dt>Notions</dt><dd>Architecture ECS, programmation générique, algèbre linéaire, réseau TCP et UDP</dd>
+            <dt>Langages</dt><dd>C++, C#, Python, Slang, LaTeX</dd>
+            <dt>Rendu et moteurs</dt><dd>Vulkan, pipeline graphique, Ogre-Next, SDL, SFML, Unity</dd>
+            <dt>Outillage</dt><dd>CMake, Git, RenderDoc, Emscripten, GoogleTest, Visual Studio, Doxygen, Blender</dd>
+            <dt>Notions</dt><dd>Architecture ECS, templates et POO, algèbre linéaire, machines à états, réseau TCP et UDP</dd>
         </dl>
     </section>
 
@@ -450,7 +493,7 @@ dialog.lightbox button { position: absolute; top: -40px; right: 0; border: 0; ba
     <section class="block" id="parcours">
         <h2 class="section-title">Parcours</h2>
         <dl class="list">
-            <dt>2024 à 2027</dt><dd>Bachelor Développeur Informatique, option Jeu Vidéo<small>Gaming Campus, Bordeaux. En 3<sup>e</sup> année.</small></dd>
+            <dt>2024 à 2027</dt><dd>Bachelor Développeur Informatique, option Jeu Vidéo<small>Gaming Campus, Bordeaux. En 3<sup>e</sup> année. Pédagogie par projets : 19 projets en 3 ans, dont 15 en équipe de 2 à 7 (programmeurs et artistes).</small></dd>
             <dt>Été 2026</dt><dd>Stage de développeur gameplay et UX/UI<small>Village Interactive Studio, à distance</small></dd>
             <dt>Janvier à juin 2026</dt><dd>Animateur d’ateliers de programmation Python<small>Jeunes-Science, Bordeaux</small></dd>
             <dt>2022 à 2024</dt><dd>Licence de physique<small>Université de Nantes</small></dd>
